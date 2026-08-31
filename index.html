@@ -1,35 +1,111 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Інформація для гравців</title>
+    <title>Journey In The Sky Wiki</title>
     <style>
-        /* Тут налаштовується зовнішній вигляд сайту */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
-            background-color: #1e1e24; /* Темний приємний фон */
-            color: #f0f0f5; /* Світлий текст */
-            max-width: 800px;
-            margin: 40px auto;
+            background-color: #1e1e24;
+            color: #e1e1e6;
+            max-width: 900px;
+            margin: 0 auto;
             padding: 20px;
         }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #d9d9d9, #b4b4b4);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
         h1 {
-            color: #4caf50; /* Зелений колір для головного заголовка */
-            border-bottom: 2px solid #4caf50;
-            padding-bottom: 10px;
+            color: #57a3f3; /* Яскравий блакитний акцент */
+            margin: 0 0 10px 0;
         }
         h2 {
-            color: #81c784; /* Світліший зелений для підзаголовків */
+            color: #b4b4b4;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
             margin-top: 30px;
         }
-        .important {
-            background-color: #2d2d35;
-            border-left: 5px solid #ff9800; /* Помаранчева лінія для важливого */
+        .container {
+            background-color: #1a1a22;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .game-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background-color: #22222c;
             padding: 15px;
+            border-radius: 6px;
             margin: 20px 0;
+        }
+        .game-icon {
+            width: 150px;
+            height: auto;
             border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .btn {
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #384d63;
+            color: #fff;
         }
     </style>
 </head>
+<body>
+
+    <header>
+        <h1>Welcome to the Journey In The Sky Wiki!</h1>
+        <p>Official informational portal for players and fans</p>
+    </header>
+
+    <div class="container">
+        <h2>Introduction</h2>
+        <p><strong>Journey In The Sky</strong> is a Dancing Line Fanmade Game, developed by JITS Studio. Explore every level of this game, follow the rhythm and avoid the obstacles, unless reaching to the end, using music.</p>
+        <p>Journey In The Sky includes 47 levels. All of them have their own story, and with each level reaches difficulty.</p>
+
+        <h2>Game Icon</h2>
+        <div class="game-card">
+            <!-- Коли завантажите картинку, вкажіть її назву в src заміне замість існуючого тексту -->
+            <img src="https://github.com/user-attachments/assets/c943ec35-0827-41af-9a95-d245e42c62ad" height="250" width="250">
+            <div>
+                <h3>Thriller V12.0</h3>
+                <p>Current featured icon version representing the rhythmic atmosphere of the game.</p>
+            </div>
+        </div>
+
+        <h2>Navigation</h2>
+        <p>Explore other sections of our wiki:</p>
+        <div class="nav-links">
+            <a href="#" class="btn">Levels (47)</a>
+            <a href="#" class="btn">Team Staff</a>
+            <a href="#" class="btn">Version Information</a>
+            <a href="#" class="btn">Gallery</a>
+            <a href="#" class="btn">Follow Us</a>
+        </div>
+    </div>
+
+</body>
+</html>
