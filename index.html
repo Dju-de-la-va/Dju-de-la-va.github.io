@@ -15,30 +15,35 @@
             margin: 0 auto;
             padding: 20px;
         }
-        .sidebar-navigation {
-            width: 260px;
+       .side-menu-card {
+            position: absolute;
+            left: -240px;
+            top: 20px;
+            width: 210px;
             background-color: #242430;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 25px 15px;
+            padding: 20px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             box-sizing: border-box;
-            border-right: 1px solid #3a3a4a;
         }
-        .sidebar-navigation h3 {
+
+        .side-menu-card h3 {
             color: #ffffff;
-            margin: 0 0 20px 0;
+            margin: 0 0 15px 0;
+            font-size: 1.1rem;
             border-bottom: 1px solid #3a3a4a;
             padding-bottom: 8px;
             text-align: center;
         }
-        .main-content-wrapper {
-            margin-left: 260px;
-            padding: 20px;
-            width: calc(100% - 260px);
-            max-width: 900px;
-            box-sizing: border-box;
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .side-menu-links .btn {
+            display: block;
+            text-align: center;
         }
         header {
            text-align: center;
@@ -54,7 +59,7 @@
            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
         h1 {
-            color: #ffffff; /* Яскравий блакитний акцент */
+            color: #ffffff;
             margin: 0 0 10px 0;
         }
         h2 {
