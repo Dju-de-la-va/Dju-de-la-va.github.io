@@ -15,6 +15,31 @@
             margin: 0 auto;
             padding: 20px;
         }
+        .sidebar-navigation {
+            width: 260px;
+            background-color: #242430;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 25px 15px;
+            box-sizing: border-box;
+            border-right: 1px solid #3a3a4a;
+        }
+        .sidebar-navigation h3 {
+            color: #ffffff;
+            margin: 0 0 20px 0;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+        .main-content-wrapper {
+            margin-left: 260px;
+            padding: 20px;
+            width: calc(100% - 260px);
+            max-width: 900px;
+            box-sizing: border-box;
+        }
         header {
            text-align: center;
            padding: 60px 20px;
@@ -65,6 +90,10 @@
             flex-wrap: wrap;
             margin-top: 15px;
         }
+        .sidebar-navigation .nav-links {
+            flex-direction: column;
+            gap: 10px;
+        }
         .btn {
             background-color: #2b3a4a;
             color: #8ab4f8;
@@ -74,6 +103,10 @@
             font-weight: bold;
             transition: 0.3s;
         }
+        .sidebar-navigation .btn {
+            display: block;
+            text-align: center;
+        }
         .btn:hover {
             background-color: #384d63;
             color: #fff;
@@ -81,7 +114,15 @@
     </style>
 </head>
 <body>
-
+    <div class="sidebar-navigation">
+        <h3>Navigation</h3>
+        <div class="nav-links">
+            <a href="#" class="btn">Levels</a>
+            <a href="#" class="btn">Team Staff</a>
+            <a href="#" class="btn">Disclaimer</a>
+        </div>
+    </div>
+    <div class="main-content-wrapper">
     <header>
         <h1>Welcome to the Journey In The Sky Wiki!</h1>
         <p>Official informational portal for players and fans</p>
@@ -146,6 +187,7 @@
             <a href="#" class="btn">Disclaimer</a>
         </div>
     </div>
+</div>
 </body>
     <p style="text-align: center;"><small>JITS Studio | 2026 | Contact Data: jitsstudioofficial04092022@gmail.com</small></p>
 </html>
