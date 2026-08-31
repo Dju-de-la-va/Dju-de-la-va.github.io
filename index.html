@@ -15,16 +15,17 @@
             margin: 0 auto;
             padding: 20px;
         }
-       .side-menu-card {
-            position: absolute;
-            left: -240px;
-            top: 20px;
+        .side-menu-card {
+            position: fixed;
+            top: 40px;
+            left: calc(50% - 450px - 240px); 
             width: 210px;
-            background-color: #242430;
+            background-color: #242430
             padding: 20px 15px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             box-sizing: border-box;
+            z-index: 100;
         }
 
         .side-menu-card h3 {
