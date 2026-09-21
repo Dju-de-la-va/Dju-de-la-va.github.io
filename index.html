@@ -5,26 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Journey In The Sky Wiki</title>
     <style>
+        /* Базові стилі та скидання */
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
             background-color: #1e1e24;
             color: #e1e1e6;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+
+        /* Головна обгортка для центрування всього сайту на ПК */
+        .site-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            align-items: flex-start;
+        }
+
+        /* Бічне меню (Навігація) */
         .side-menu-card {
-            position: fixed;
-            top: 40px;
-            left: calc(50% - 450px - 260px); 
             width: 240px; 
-            background-color: #242430 !important;
+            background-color: #242430;
             padding: 20px 15px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            box-sizing: border-box;
-            z-index: 100;
+            flex-shrink: 0;
         }
         .side-menu-card h3 {
             color: #ffffff;
@@ -37,27 +51,14 @@
         .side-menu-links {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
         }
-        .side-menu-card .btn {
-            display: block !important;
-            width: 85% !important;
-            margin: 5px auto !important;
-            text-align: center !important;
-            background-color: #2b3a4a !important; 
-            color: #8ab4f8 !important; 
-            padding: 10px 5px !important;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            box-sizing: border-box;
-            transition: 0.3s;
-            border: none !important;
-        }
-        .side-menu-card .btn:hover {
-            background-color: #2b3a4a !important;
-            color: #ffffff !important;
+
+        /* Основний контент */
+        .main-content-wrapper {
+            flex-grow: 1;
+            max-width: 900px;
+            width: 100%;
         }
         header {
            text-align: center;
@@ -73,6 +74,7 @@
         h1 {
             color: #ffffff;
             margin: 0 0 10px 0;
+            font-size: 1.8rem;
         }
         h2 {
             color: #b4b4b4;
@@ -86,6 +88,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+
+        /* Картка гри (іконка + опис) */
         .game-card {
             display: flex;
             align-items: center;
@@ -100,97 +104,170 @@
             height: auto;
             border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+            flex-shrink: 0;
         }
+
+        /* Адаптивні зображення в галереї */
+        .gallery-img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        /* Кнопки та посилання */
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
             margin-top: 15px;
         }
-        .sidebar-navigation .nav-links {
-            flex-direction: column;
-            gap: 10px;
-        }
         .btn {
+            display: inline-block;
             background-color: #2b3a4a;
             color: #8ab4f8;
-            padding: 8px 16px;
+            padding: 10px 16px;
             text-decoration: none;
             border-radius: 4px;
             font-weight: bold;
             transition: 0.3s;
-        }
-        .sidebar-navigation .btn {
-            display: block;
             text-align: center;
+            border: none;
+        }
+        .side-menu-card .btn {
+            display: block;
+            width: 100%;
         }
         .btn:hover {
             background-color: #384d63;
             color: #fff;
         }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            color: #a1a1a6;
+        }
+
+        /* АДАПТИВНІСТЬ: Правила для планшетів та телефонів */
+        @media (max-width: 1150px) {
+            .site-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                padding: 0 10px;
+            }
+            .side-menu-card {
+                width: 100%;
+                max-width: 900px;
+            }
+            .side-menu-links {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .side-menu-card .btn {
+                display: inline-block;
+                width: auto;
+                flex-grow: 1;
+                min-width: 120px;
+            }
+        }
+
+        /* Додаткова оптимізація для маленьких екранів (смартфонів) */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.4rem;
+            }
+            .container {
+                padding: 15px;
+            }
+            .game-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .btn {
+                width: 100%; /* кнопки соцмереж на весь екран для зручного натискання пальцем */
+            }
+        }
     </style>
 </head>
 <body>
+
+<div class="site-container">
+    <!-- Навігація, яка на мобільних переміщується вгору -->
     <div class="side-menu-card">
         <h3>Navigation</h3>
-        <div class="nav-links">
-            <a href="#" class="btn">Home  </a>
+        <div class="side-menu-links">
+            <a href="#" class="btn">Home</a>
             <a href="#" class="btn">Levels</a>
             <a href="#" class="btn">Team Staff</a>
             <a href="#" class="btn">Disclaimer</a>
         </div>
     </div>
+
+    <!-- Основна частина сайту -->
     <div class="main-content-wrapper">
-    <header>
-        <h1>Welcome to the Journey In The Sky Wiki!</h1>
-        <p>Official informational portal for players and fans</p>
-    </header>
+        <header>
+            <h1>Welcome to the Journey In The Sky Wiki!</h1>
+            <p>Official informational portal for players and fans</p>
+        </header>
 
-    <div class="container">
-        <h2>Introduction</h2>
-        <p><strong>Journey In The Sky</strong> is a Dancing Line Fanmade Game, developed by JITS Studio. Explore every level of this game, follow the rhythm and avoid the obstacles, unless reaching to the end, using music.</p>
-        <p>Journey In The Sky includes 47 levels. All of them have their own story, and with each level reaches difficulty.</p>
+        <div class="container">
+            <h2>Introduction</h2>
+            <p><strong>Journey In The Sky</strong> is a Dancing Line Fanmade Game, developed by JITS Studio. Explore every level of this game, follow the rhythm and avoid the obstacles, unless reaching to the end, using music.</p>
+            <p>Journey In The Sky includes 47 levels. All of them have their own story, and with each level reaches difficulty.</p>
 
-        <h2>Game Icon</h2>
-        <div class="game-card">
-            <img src="https://github.com/user-attachments/assets/c943ec35-0827-41af-9a95-d245e42c62ad"class="game-icon">
-            <p>Game Icon for version V1.2.0 with update of new level Thriller</p>
-            <div>
+            <h2>Game Icon</h2>
+            <div class="game-card">
+                <img src="https://github.com" class="game-icon" alt="Game Icon">
+                <div>
+                    <p>Game Icon for version V1.2.0 with update of new level Thriller</p>
+                </div>
             </div>
-        </div>
-        <h2>Version Information</h2>
-        <p>First version: V1.0.0 4th September 2022 (04.09.2022)</p>
-        <p>Latest version: v1.2.0 24th July 2025 (24.07.2026)</p>
 
-        <h2>Gallery</h2>
-        <img src="https://github.com/user-attachments/assets/b21d63d5-ba5b-40ab-9647-84fd454a8966" height="270" width="480">
-        <p><i>Screenshot from the level Starting</i></p>
-        <img src="https://github.com/user-attachments/assets/160ae49c-0753-4695-907e-7833466302ed" height="270" width="480">
-        <p><i>Screenshot from the level Lake Of Opportunity</i></p>
-        <img src="https://github.com/user-attachments/assets/1d713833-178f-426c-837c-e44fa99b8ad5" height="270" width="480">
-        <p><i>Screenshot from the level Sunrise</i></p>
-        <img src="https://github.com/user-attachments/assets/c700efc3-315d-4c93-b103-28f971541459" height="270" width="480">
-        <p><i>Screenshot from the level Poetry Of Birds</i></p>
-        <img src="https://github.com/user-attachments/assets/cccca477-c60b-4a92-9831-fd2fa9598f20" height="270" width="480">
-        <p><i>Screenshot from the level Thriller</i></p>
-        <img src="https://github.com/user-attachments/assets/f853f852-0f86-4a31-93aa-fafac7555142" height="270" width="480">
-        <p><i>Screenshot from the level Garden</i></p>
-        <img src="https://github.com/user-attachments/assets/bf381977-c769-42c4-bd0d-38e0897142f2" height="270" width="480">
-        <p><i>Screenshot from the level Celestial Fantasy</i></p>
+            <h2>Version Information</h2>
+            <p>First version: V1.0.0 4th September 2022 (04.09.2022)</p>
+            <p>Latest version: v1.2.0 24th July 2025 (24.07.2026)</p>
 
-        <h2>Follow Us</h2>
-        <div class="nav-links">
+            <h2>Gallery</h2>
+            <img src="https://github.com" class="gallery-img" alt="Starting">
+            <p><i>Screenshot from the level Starting</i></p>
             
-        <div class="nav-links">
-            <a href="https://youtube.com" target="_blank" class="btn">YouTube</a>
-            <a href="https://space.bilibili.com/3493137997629710" target="_blank" class="btn">Bilibili</a>
-            <a href="https://discord.com/invite/knfkVtSxxs" target="_blank" class="btn">Discord</a>
-            <a href="https://qm.qq.com/q/4wqVLANR4k" target="_blank" class="btn">QQ</a>
-            <a href="https://www.taptap.io/app/33561168" target="_blank" class="btn">TapTap</a>
-            <a href="https://chinadlrs.com/app/?id=34" target="_blank" class="btn">DL RS Community Official Website</a>
-        </div>
-        </div>
-        <h2>Histroy</h2>
+            <img src="https://github.com" class="gallery-img" alt="Lake Of Opportunity">
+            <p><i>Screenshot from the level Lake Of Opportunity</i></p>
+            
+            <img src="https://github.com" class="gallery-img" alt="Sunrise">
+            <p><i>Screenshot from the level Sunrise</i></p>
+            
+            <img src="https://github.com" class="gallery-img" alt="Poetry Of Birds">
+            <p><i>Screenshot from the level Poetry Of Birds</i></p>
+            
+            <img src="https://github.com" class="gallery-img" alt="Thriller">
+            <p><i>Screenshot from the level Thriller</i></p>
+            
+            <img src="https://github.com" class="gallery-img" alt="Garden">
+            <p><i>Screenshot from the level Garden</i></p>
+            
+            <img src="https://github.com" class="gallery-img" alt="Celestial Fantasy">
+            <p><i>Screenshot from the level Celestial Fantasy</i></p>
+
+            <h2>Follow Us</h2>
+            <div class="nav-links">
+                <a href="https://youtube.com" target="_blank" class="btn">YouTube</a>
+                <a href="https://bilibili.com" target="_blank" class="btn">Bilibili</a>
+                <a href="https://discord.com" target="_blank" class="btn">Discord</a>
+                <a href="https://qq.com" target="_blank" class="btn">QQ</a>
+                <a href="https://taptap.io" target="_blank" class="btn">TapTap</a>
+                <a href="https://chinadlrs.com" target="_blank" class="btn">DL RS Community</a>
+            </div>
+
+            <h2>Histroy</h2>
         <p>Idea about making Dancing Line Fanmade Game was born at August 2022. At that time Dju de la va made 5 levels and 3 of them was published, meanwhile 2 other was not finished. Idea was simple: combine 5 ready levels in one game.
         From the August 2022 Dju de la va worked with future big game alone and published 3 versions. At 4th September 2022 Journey In The Sky came out.  After 5th September 2022 ttt joined to the project and made 2 levels for
         the game in 2022. At 16th February 2023 we published our game on <a href="https://chinadlrs.com/app/?id=34" style="color: #8ab4f8;">DL RS Community Official Website</a> and entered in [Bilibili](https://space.bilibili.com/3493137997629710) with name JITS
