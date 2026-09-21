@@ -1,78 +1,595 @@
-```html
 <!DOCTYPE html>
-<html lang="uk">
+
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Levels — Journey In The Sky Wiki</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Journey In The Sky Wiki</title>
+
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#eee}
-body{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.7)),url("https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba") center/cover fixed no-repeat}
-.menu-btn{position:fixed;top:18px;left:18px;z-index:1001;width:48px;height:48px;border:0;border-radius:12px;background:rgba(20,20,20,.9);color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 15px #0008}
-.side-menu{position:fixed;top:0;left:-280px;z-index:1000;width:280px;height:100dvh;padding:80px 20px 20px;background:rgba(18,18,18,.97);box-shadow:5px 0 25px #0008;transition:left .3s;overflow-y:auto}
-.side-menu.open{left:0}
-.side-menu a{display:block;padding:14px 16px;margin:6px 0;border-radius:10px;color:#fff;text-decoration:none;background:#ffffff0d}
-.side-menu a:hover{background:#ffffff1c}
-.overlay{position:fixed;inset:0;z-index:999;background:#0008;opacity:0;visibility:hidden;transition:.3s}
-.overlay.show{opacity:1;visibility:visible}
-.container{width:min(1400px,calc(100% - 30px));margin:40px auto;padding:35px;background:rgba(25,25,25,.9);border:1px solid #ffffff18;border-radius:20px;box-shadow:0 10px 40px #0009;backdrop-filter:blur(8px)}
-h1{text-align:center;font-size:38px;margin:0 0 30px}
-h2{margin-top:35px;border-bottom:1px solid #ffffff22;padding-bottom:10px}
-.gallery{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
-.gallery figure{margin:0;max-width:480px;width:100%;text-align:center}
-.gallery img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #ffffff22}
-.gallery figcaption{margin-top:8px;color:#bbb}
-.table-wrap{width:100%;overflow-x:auto;border-radius:12px}
-table{width:100%;border-collapse:collapse;min-width:900px;background:#111b}
-th,td{padding:11px 10px;border:1px solid #ffffff18;text-align:left}
-th{background:#ffffff12;white-space:nowrap}
-tr:nth-child(even){background:#ffffff06}
-.duration td:first-child{font-weight:bold}
-.note{color:#aaa;font-size:14px;margin-top:8px}
-@media(max-width:700px){
-.container{width:calc(100% - 16px);margin:20px auto;padding:20px 12px;border-radius:16px}
-h1{font-size:29px}
-h2{font-size:22px}
-.gallery{gap:14px}
-.menu-btn{top:12px;left:12px}
-}
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #1e1e24;
+        color: #e1e1e6;
+
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* =====================================
+       MENU BUTTON
+    ===================================== */
+
+    .menu-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+
+        width: 50px;
+        height: 50px;
+
+        background-color: #242430;
+        color: #ffffff;
+
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+
+        font-size: 25px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        z-index: 1001;
+
+        box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .menu-toggle:hover {
+        background-color: #2b3a4a;
+    }
+
+    .menu-toggle:active {
+        transform: scale(0.94);
+    }
+
+
+    /* =====================================
+       SIDE NAVIGATION
+    ===================================== */
+
+    .side-menu-card {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 260px;
+        height: 100vh;
+        height: 100dvh;
+
+        padding: 85px 15px 20px;
+
+        background-color: #242430;
+
+        box-shadow: 4px 0 15px rgba(0,0,0,0.45);
+
+        z-index: 1000;
+
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        transform: translateX(-100%);
+
+        transition: transform 0.3s ease;
+    }
+
+    .side-menu-card.open {
+        transform: translateX(0);
+    }
+
+    .side-menu-card h3 {
+        color: #ffffff;
+
+        margin: 0 0 15px;
+
+        font-size: 1.1rem;
+
+        border-bottom: 1px solid #3a3a4a;
+
+        padding-bottom: 8px;
+
+        text-align: center;
+    }
+
+    .side-menu-links {
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .side-menu-card .btn {
+        display: block;
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 10px;
+
+        text-align: center;
+
+        background-color: #2b3a4a;
+
+        color: #8ab4f8;
+
+        text-decoration: none;
+
+        border-radius: 5px;
+
+        font-weight: bold;
+
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .side-menu-card .btn:hover {
+        background-color: #384d63;
+        color: #ffffff;
+    }
+
+
+    /* =====================================
+       OVERLAY
+    ===================================== */
+
+    .menu-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        background-color: rgba(0,0,0,0.5);
+
+        z-index: 999;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .menu-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    /* =====================================
+       HEADER
+    ===================================== */
+
+    header {
+        text-align: center;
+
+        padding: 60px 20px;
+
+        background-image:
+            linear-gradient(
+                rgba(0,0,0,0.25),
+                rgba(0,0,0,0.25)
+            ),
+            url('Level20Icon.png');
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        border-radius: 8px;
+
+        margin-bottom: 20px;
+
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        color: #ffffff;
+
+        margin: 0 0 10px;
+
+        font-size: 2rem;
+    }
+
+    h2 {
+        color: #b4b4b4;
+
+        border-bottom: 1px solid #3a3a4a;
+
+        padding-bottom: 8px;
+
+        margin-top: 30px;
+    }
+
+
+    /* =====================================
+       MAIN CONTAINER
+    ===================================== */
+
+    .container {
+        background-color: #242430;
+
+        padding: 25px;
+
+        border-radius: 8px;
+
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+
+    /* =====================================
+       GAME CARD
+    ===================================== */
+
+    .game-card {
+        display: flex;
+
+        align-items: center;
+
+        gap: 20px;
+
+        background-color: #22222c;
+
+        padding: 15px;
+
+        border-radius: 6px;
+
+        margin: 20px 0;
+    }
+
+    .game-icon {
+        width: 150px;
+
+        max-width: 100%;
+
+        height: auto;
+
+        border-radius: 4px;
+
+        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+
+    /* =====================================
+       BUTTONS
+    ===================================== */
+
+    .nav-links {
+        display: flex;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        margin-top: 15px;
+    }
+
+    .btn {
+        background-color: #2b3a4a;
+
+        color: #8ab4f8;
+
+        padding: 8px 16px;
+
+        text-decoration: none;
+
+        border-radius: 4px;
+
+        font-weight: bold;
+
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #384d63;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================
+       GALLERY
+    ===================================== */
+
+    .gallery-image {
+        display: block;
+        width: 100%;
+        max-width: 480px;
+        height: auto;
+        margin: 25px auto 8px;
+        border-radius: 6px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    .gallery-caption {
+        text-align: center;
+        color: #aaa;
+        margin-top: 0;
+    }
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+    footer {
+        text-align: center;
+        color: #999;
+        padding: 20px 10px;
+        font-size: 0.85rem;
+    }
+
+
+    /* =====================================
+       TABLETS
+    ===================================== */
+
+    @media (max-width: 600px) {
+
+        body {
+            padding: 10px;
+
+            font-size: 15px;
+        }
+        .menu-toggle {
+            top: 12px;
+            left: 12px;
+            width: 45px;
+            height: 45px;
+            font-size: 22px;
+        }
+        .side-menu-card {
+            width: 80%;
+            max-width: 280px;
+        }
+        header {
+            padding: 50px 15px;
+            margin-bottom: 12px;
+        }
+        h1 {
+            font-size: 1.55rem;
+            line-height: 1.25;
+        }
+        header p {
+            font-size: 0.9rem;
+        }
+        .container {
+            padding: 15px;
+        }
+        h2 {
+            font-size: 1.3rem;
+        }
+        .game-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 12px;
+        }
+        .game-icon {
+            width: 140px;
+        }
+        .nav-links {
+            gap: 8px;
+        }
+        .nav-links .btn {
+            flex: 1 1 100%;
+            text-align: center;
+            padding: 10px;
+        }
+        .gallery-image {
+            width: 100%;
+            max-width: 100%;
+        }
+        footer {
+            font-size: 0.75rem;
+        }
+    }
+
+
+    /* =====================================
+       VERY SMALL PHONES
+    ===================================== */
+
+    @media (max-width: 380px) {
+
+        body {
+            padding: 7px;
+        }
+        .container {
+            padding: 12px;
+        }
+        h1 {
+            font-size: 1.35rem;
+        }
+        h2 {
+            font-size: 1.2rem;
+        }
+    }
 </style>
+```
+
 </head>
+
 <body>
-<button class="menu-btn" id="menuBtn">☰</button>
-<nav class="side-menu" id="sideMenu">
-<a href="index.html">Home</a>
-<a href="levels.html">Levels</a>
-<a href="characters.html">Characters</a>
-<a href="music.html">Music</a>
-</nav>
-<div class="overlay" id="overlay"></div>
 
-<main class="container">
-<h1>Levels</h1>
+```
+<!-- =====================================
+     MENU BUTTON
+===================================== -->
 
-<h2>Gallery</h2>
-<div class="gallery">
-<figure>
-<img src="https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba" alt="Level Menu of the game">
-<figcaption>Level Menu of the game</figcaption>
-</figure>
-<figure>
-<img src="https://github.com/user-attachments/assets/7a3f493b-3967-4f95-ae44-067b28d72560" alt="Levels">
-</figure>
+<button
+    class="menu-toggle"
+    id="menuToggle"
+    aria-label="Open navigation"
+    aria-expanded="false"
+>
+    ☰
+</button>
+
+
+<!-- =====================================
+     NAVIGATION
+===================================== -->
+
+<div class="side-menu-card" id="sideMenu">
+
+    <h3>Navigation</h3>
+
+    <div class="side-menu-links">
+
+        <a href="index.html" class="btn">Home</a>
+
+        <a href="levels.html" class="btn">Levels</a>
+
+        <a href="#" class="btn">
+            Team Staff
+        </a>
+
+        <a href="#" class="btn">
+            Disclaimer
+        </a>
+
+    </div>
+
 </div>
 
-<h2>Level Durations</h2>
-<div class="table-wrap">
-<table class="duration">
-<tr><th>Category</th><th>Duration</th></tr>
-<tr><td>Short</td><td>&lt; 40 sec.</td></tr>
-<tr><td>Medium</td><td>≥ 40 sec. &lt; 100 sec.</td></tr>
-<tr><td>Long</td><td>≥ 100 sec. &lt; 160 sec.</td></tr>
-<tr><td>Extra Long</td><td>≥ 160 sec.</td></tr>
-</table>
-</div>
+
+<!-- Overlay -->
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+
+    function openMenu() {
+
+        sideMenu.classList.add("open");
+
+        menuOverlay.classList.add("show");
+
+        menuToggle.textContent = "✕";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+
+    function closeMenu() {
+
+        sideMenu.classList.remove("open");
+
+        menuOverlay.classList.remove("show");
+
+        menuToggle.textContent = "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+
+    function toggleMenu() {
+
+        if (
+            sideMenu.classList.contains("open")
+        ) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+
+    }
+
+
+    /* Кнопка ☰ / ✕ */
+
+    menuToggle.addEventListener(
+        "click",
+        toggleMenu
+    );
+
+
+    /* Клік по затемненню закриває меню */
+
+    menuOverlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    /* Escape закриває меню */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+
+        }
+    );
+
+
+    /* Після натискання пункту меню закриваємо його */
+
+    document
+        .querySelectorAll(".side-menu-card .btn")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+
+</script>
+```
+
+</body>
+</html>
 
 <h2>Complete Level List</h2>
 <div class="table-wrap">
