@@ -1,660 +1,263 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Journey In The Sky Wiki</title>
-
-<style>
-    * {
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-    }
-
-    body {
-        font-family: 'Segoe UI', Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #1e1e24;
-        color: #e1e1e6;
-
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 20px;
-    }
-
-    /* =====================================
-       MENU BUTTON
-    ===================================== */
-
-    .menu-toggle {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-
-        width: 50px;
-        height: 50px;
-
-        background-color: #242430;
-        color: #ffffff;
-
-        border: 1px solid #3a3a4a;
-        border-radius: 8px;
-
-        font-size: 25px;
-        line-height: 1;
-
-        cursor: pointer;
-
-        z-index: 1001;
-
-        box-shadow: 0 4px 12px rgba(0,0,0,0.45);
-
-        transition:
-            background-color 0.2s ease,
-            transform 0.2s ease;
-    }
-
-    .menu-toggle:hover {
-        background-color: #2b3a4a;
-    }
-
-    .menu-toggle:active {
-        transform: scale(0.94);
-    }
-
-
-    /* =====================================
-       SIDE NAVIGATION
-    ===================================== */
-
-    .side-menu-card {
-        position: fixed;
-
-        top: 0;
-        left: 0;
-
-        width: 260px;
-        height: 100vh;
-        height: 100dvh;
-
-        padding: 85px 15px 20px;
-
-        background-color: #242430;
-
-        box-shadow: 4px 0 15px rgba(0,0,0,0.45);
-
-        z-index: 1000;
-
-        overflow-y: auto;
-        overscroll-behavior: contain;
-
-        transform: translateX(-100%);
-
-        transition: transform 0.3s ease;
-    }
-
-    .side-menu-card.open {
-        transform: translateX(0);
-    }
-
-    .side-menu-card h3 {
-        color: #ffffff;
-
-        margin: 0 0 15px;
-
-        font-size: 1.1rem;
-
-        border-bottom: 1px solid #3a3a4a;
-
-        padding-bottom: 8px;
-
-        text-align: center;
-    }
-
-    .side-menu-links {
-        display: flex;
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-    .side-menu-card .btn {
-        display: block;
-
-        width: 100%;
-
-        margin: 0;
-
-        padding: 10px;
-
-        text-align: center;
-
-        background-color: #2b3a4a;
-
-        color: #8ab4f8;
-
-        text-decoration: none;
-
-        border-radius: 5px;
-
-        font-weight: bold;
-
-        transition:
-            background-color 0.2s ease,
-            color 0.2s ease;
-    }
-
-    .side-menu-card .btn:hover {
-        background-color: #384d63;
-        color: #ffffff;
-    }
-
-
-    /* =====================================
-       OVERLAY
-    ===================================== */
-
-    .menu-overlay {
-        position: fixed;
-
-        inset: 0;
-
-        background-color: rgba(0,0,0,0.5);
-
-        z-index: 999;
-
-        opacity: 0;
-        visibility: hidden;
-
-        transition:
-            opacity 0.3s ease,
-            visibility 0.3s ease;
-    }
-
-    .menu-overlay.show {
-        opacity: 1;
-        visibility: visible;
-    }
-
-
-    /* =====================================
-       HEADER
-    ===================================== */
-
-    header {
-        text-align: center;
-
-        padding: 60px 20px;
-
-        background-image:
-            linear-gradient(
-                rgba(0,0,0,0.25),
-                rgba(0,0,0,0.25)
-            ),
-            url('Level20Icon.png');
-
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-
-        border-radius: 8px;
-
-        margin-bottom: 20px;
-
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-    }
-
-    h1 {
-        color: #ffffff;
-
-        margin: 0 0 10px;
-
-        font-size: 2rem;
-    }
-
-    h2 {
-        color: #b4b4b4;
-
-        border-bottom: 1px solid #3a3a4a;
-
-        padding-bottom: 8px;
-
-        margin-top: 30px;
-    }
-
-
-    /* =====================================
-       MAIN CONTAINER
-    ===================================== */
-
-    .container {
-        background-color: #242430;
-
-        padding: 25px;
-
-        border-radius: 8px;
-
-        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    }
-
-
-    /* =====================================
-       GAME CARD
-    ===================================== */
-
-    .game-card {
-        display: flex;
-
-        align-items: center;
-
-        gap: 20px;
-
-        background-color: #22222c;
-
-        padding: 15px;
-
-        border-radius: 6px;
-
-        margin: 20px 0;
-    }
-
-    .game-icon {
-        width: 150px;
-
-        max-width: 100%;
-
-        height: auto;
-
-        border-radius: 4px;
-
-        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
-    }
-
-
-    /* =====================================
-       BUTTONS
-    ===================================== */
-
-    .nav-links {
-        display: flex;
-
-        gap: 15px;
-
-        flex-wrap: wrap;
-
-        margin-top: 15px;
-    }
-
-    .btn {
-        background-color: #2b3a4a;
-
-        color: #8ab4f8;
-
-        padding: 8px 16px;
-
-        text-decoration: none;
-
-        border-radius: 4px;
-
-        font-weight: bold;
-
-        transition: 0.3s;
-    }
-
-    .btn:hover {
-        background-color: #384d63;
-
-        color: #ffffff;
-    }
-
-
-    /* =====================================
-       GALLERY
-    ===================================== */
-
-    .gallery-image {
-        display: block;
-        width: 100%;
-        max-width: 480px;
-        height: auto;
-        margin: 25px auto 8px;
-        border-radius: 6px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.5);
-    }
-
-    .gallery-caption {
-        text-align: center;
-        color: #aaa;
-        margin-top: 0;
-    }
-
-    /* =====================================
-       FOOTER
-    ===================================== */
-    footer {
-        text-align: center;
-        color: #999;
-        padding: 20px 10px;
-        font-size: 0.85rem;
-    }
-
-
-    /* =====================================
-       TABLETS
-    ===================================== */
-
-    @media (max-width: 600px) {
-
+    <title>Levels - Journey In The Sky Wiki</title>
+    <style>
         body {
-            padding: 10px;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #1e1e24;
+            color: #e1e1e6;
+            width: 65%; 
+            max-width: 900px;
+            margin: 0 auto 0 32%; 
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-            font-size: 15px;
-        }
-        .menu-toggle {
-            top: 12px;
-            left: 12px;
-            width: 45px;
-            height: 45px;
-            font-size: 22px;
-        }
         .side-menu-card {
-            width: 80%;
-            max-width: 280px;
+            position: fixed;
+            top: 40px;
+            left: 2%; 
+            width: 26%; 
+            max-width: 240px;
+            background-color: #242430 !important;
+            padding: 20px 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            z-index: 100;
         }
-        header {
-            padding: 50px 15px;
-            margin-bottom: 12px;
+        
+        .side-menu-card h3 {
+            color: #ffffff;
+            margin: 0 0 15px 0;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
+            text-align: center;
         }
-        h1 {
-            font-size: 1.55rem;
-            line-height: 1.25;
-        }
-        header p {
-            font-size: 0.9rem;
-        }
-        .container {
-            padding: 15px;
-        }
-        h2 {
-            font-size: 1.3rem;
-        }
-        .game-card {
+        
+        .side-menu-links {
+            display: flex;
             flex-direction: column;
-            text-align: center;
-            gap: 12px;
+            align-items: center;
+            gap: 10px;
         }
-        .game-icon {
-            width: 140px;
+        
+        .side-menu-card .btn {
+            display: block !important;
+            width: 85% !important;
+            margin: 5px auto !important;
+            text-align: center !important;
+            background-color: #2b3a4a !important; 
+            color: #8ab4f8 !important; 
+            padding: 10px 5px !important;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            box-sizing: border-box;
+            transition: 0.3s;
+            border: none !important;
         }
-        .nav-links {
-            gap: 8px;
-        }
-        .nav-links .btn {
-            flex: 1 1 100%;
-            text-align: center;
-            padding: 10px;
-        }
-        .gallery-image {
-            width: 100%;
-            max-width: 100%;
-        }
-        footer {
-            font-size: 0.75rem;
-        }
-    }
 
-
-    /* =====================================
-       VERY SMALL PHONES
-    ===================================== */
-
-    @media (max-width: 380px) {
-
-        body {
-            padding: 7px;
+        .side-menu-card .btn:hover {
+            background-color: #384d63 !important;
+            color: #ffffff !important;
         }
-        .container {
-            padding: 12px;
-        }
-        h1 {
-            font-size: 1.35rem;
-        }
+
         h2 {
-            font-size: 1.2rem;
+            color: #b4b4b4;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
+            margin-top: 30px;
         }
-    }
-</style>
-```
 
+        .container {
+            background-color: #242430;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        .gallery-block {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+            margin-bottom: 5px;
+        }
+
+        .gallery-block p {
+            font-style: italic;
+            font-size: 0.9rem;
+            color: #b4b4b4;
+            margin-top: 2px;
+        }
+
+        /* 📊 СТИЛІ ДЛЯ СТИЛЬНИХ ТА АДАТИВНИХ ТАБЛИЦЬ */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e1e24;
+            color: #e1e1e6;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #3a3a4a;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        tr:hover {
+            background-color: #22222c;
+        }
+
+        /* Адаптивні кнопки для посилань всередині таблиці */
+        table .btn-link {
+            color: #8ab4f8;
+            text-decoration: none;
+        }
+        table .btn-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 📱 АДАПТИВНІСТЬ ДЛЯ АНДРОЇД ТА СМАРТФОНІВ */
+        @media (max-width: 1380px) {
+            body {
+                width: 100%;
+                margin: 0 auto;
+                padding: 15px;
+            }
+            
+            .side-menu-card {
+                position: static;
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            
+            .side-menu-links {
+                flex-direction: row; 
+                flex-wrap: wrap;     
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .side-menu-card .btn {
+                display: inline-block !important;
+                width: auto !important; 
+                margin: 0 !important;
+                padding: 8px 16px !important;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-```
-<!-- =====================================
-     MENU BUTTON
-===================================== -->
-
-<button
-    class="menu-toggle"
-    id="menuToggle"
-    aria-label="Open navigation"
-    aria-expanded="false"
->
-    ☰
-</button>
-
-
-<!-- =====================================
-     NAVIGATION
-===================================== -->
-
-<div class="side-menu-card" id="sideMenu">
-
-    <h3>Navigation</h3>
-
-    <div class="side-menu-links">
-
-        <a href="index.html" class="btn">Home</a>
-
-        <a href="levels.html" class="btn">Levels</a>
-
-        <a href="#" class="btn">
-            Team Staff
-        </a>
-
-        <a href="#" class="btn">
-            Disclaimer
-        </a>
-
+    <div class="side-menu-card">
+        <h3>Navigation</h3>
+        <div class="side-menu-links"> 
+            <a href="index.html" class="btn">Home</a>
+            <a href="levels.html" class="btn">Levels</a>
+            <a href="#" class="btn">Team Staff</a>
+            <a href="#" class="btn">Disclaimer</a>
+        </div>
     </div>
 
-</div>
+    <div class="container">
+        <h2>Gallery</h2>
+        <div class="gallery-block">
+            <img src="https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba" alt="Level Menu">
+            <p>Level Menu of the game</p>
+        </div>
+        <div class="gallery-block">
+            <img src="https://github.com/user-attachments/assets/7a3f493b-3967-4f95-ae44-067b28d72560" alt="Level List Screen">
+        </div>
 
+        <h2>Level Durations</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Short</strong></td>
+                        <td>&lt; 40 sec.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medium</strong></td>
+                        <td>&ge; 40 sec. &lt; 100 sec.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Long</strong></td>
+                        <td>&ge; 100 sec. &lt; 160 sec.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Extra Long</strong></td>
+                        <td>&ge; 160 sec.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<!-- Overlay -->
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-></div>
-
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
-
-<script>
-
-    const menuToggle =
-        document.getElementById("menuToggle");
-
-    const sideMenu =
-        document.getElementById("sideMenu");
-
-    const menuOverlay =
-        document.getElementById("menuOverlay");
-
-
-    function openMenu() {
-
-        sideMenu.classList.add("open");
-
-        menuOverlay.classList.add("show");
-
-        menuToggle.textContent = "✕";
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-    }
-
-
-    function closeMenu() {
-
-        sideMenu.classList.remove("open");
-
-        menuOverlay.classList.remove("show");
-
-        menuToggle.textContent = "☰";
-
-        menuToggle.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-    }
-
-
-    function toggleMenu() {
-
-        if (
-            sideMenu.classList.contains("open")
-        ) {
-            closeMenu();
-        } else {
-            openMenu();
-        }
-
-    }
-
-
-    /* Кнопка ☰ / ✕ */
-
-    menuToggle.addEventListener(
-        "click",
-        toggleMenu
-    );
-
-
-    /* Клік по затемненню закриває меню */
-
-    menuOverlay.addEventListener(
-        "click",
-        closeMenu
-    );
-
-
-    /* Escape закриває меню */
-
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
-                closeMenu();
-            }
-
-        }
-    );
-
-
-    /* Після натискання пункту меню закриваємо його */
-
-    document
-        .querySelectorAll(".side-menu-card .btn")
-        .forEach(function(button) {
-
-            button.addEventListener(
-                "click",
-                closeMenu
-            );
-
-        });
-
-</script>
-```
-
-</body>
-</html>
-
-<h2>Complete Level List</h2>
-<div class="table-wrap">
-<table>
-<tr><th>Level Number</th><th>Level Name</th><th>Level Author</th><th>Level Soundtrack</th><th>Duration</th><th>Price (Coins)</th></tr>
-<tr><td>1</td><td>Starting</td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
-<tr><td>2</td><td>The Beginning (Old)</td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
-<tr><td>3</td><td>Harmony</td><td>Assassin</td><td>Nicky Romero &amp; Stadiumx - Harmony (Original Mix)</td><td>Medium</td><td>300</td></tr>
-<tr><td>4</td><td>Cold Night</td><td>Marios1Gr</td><td>Eneide - Mysterious Moments</td><td>Long</td><td>300</td></tr>
-<tr><td>5</td><td>Nostalgia</td><td>NtyElias &amp; GP0108</td><td>Eric Matyas - Our Mountain 003</td><td>Medium</td><td>300</td></tr>
-<tr><td>6</td><td>Moment Of Peace</td><td>Dju de la va</td><td>Olafur Arnalds - This Place Is A Shelter</td><td>Long</td><td>300</td></tr>
-<tr><td>7</td><td>Eutopia</td><td>鸢烨酱Sakuya</td><td>Yoohsic Roomz / Yooh - Eutopia</td><td>Extra Long</td><td>300</td></tr>
-<tr><td>8</td><td>Winter Of Doubt</td><td>Dju de la va</td><td>Terry Devine-King &amp; Tom Peters &amp; Gavin Harrison - Introspective</td><td>Extra Long</td><td>300</td></tr>
-<tr><td>9</td><td>Sunrise</td><td>Dju de la va</td><td>Pedar B. Helland - Always</td><td>Medium</td><td>300</td></tr>
-<tr><td>10</td><td>The North</td><td>Tatajuo &amp; BirdLine</td><td>BrunuhVille - Song of the North</td><td>Medium</td><td>300</td></tr>
-<tr><td>11</td><td>Ocean</td><td>舞线Faded</td><td>Kan R. Gao - Finding Paradise - Trailer Theme</td><td>Medium</td><td>300</td></tr>
-<tr><td>12</td><td>Cloud</td><td>NtyElias &amp; GP0108</td><td>[Rolling Sky] Zach Striefel - Cloud</td><td>Medium</td><td>300</td></tr>
-<tr><td>13</td><td>Discord Community</td><td>NtyElias &amp; GP0108</td><td>theo5970 - The Challenge</td><td>Medium</td><td>550</td></tr>
-<tr><td>14</td><td>Poetry Of Birds</td><td>CXY-辰</td><td>许司 - 鸟之诗 (长笛版)</td><td>Long</td><td>2000</td></tr>
-<tr><td>15</td><td>The Poem</td><td>苿</td><td>垃目- 诗笺</td><td>Long</td><td>550</td></tr>
-<tr><td>16</td><td>Lake Of Opportunity</td><td>Dju de la va</td><td>Dan Skinner &amp; Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
-<tr><td>17</td><td>Environment</td><td>舞线Faded &amp; Lwtiky Studio &amp; Dju de la va</td><td>CMJ - 山海不可平</td><td>Long</td><td>550</td></tr>
-<tr><td>18</td><td>The End Remix</td><td>蓝焰TheBlueFire &amp; Loxfullsece_芙 &amp; TigerCat &amp; JimTsai</td><td>TDX特仑苏 - The End (Remix)</td><td>Long</td><td>550</td></tr>
-<tr><td>19</td><td>Land Of The Love</td><td>Dju de la va</td><td>Gibran Alcocer - Idea 10</td><td>Long</td><td>550</td></tr>
-<tr><td>20</td><td>Thriller</td><td>Dju de la va</td><td>Soundridemusic - Dark Water</td><td>Medium</td><td>2000</td></tr>
-<tr><td>21</td><td>Escaping The Ruins</td><td>羽焰晨星 &amp; 随风prodis</td><td>Gareth Cocker - Escaping The Ruins</td><td>Long</td><td>550</td></tr>
-<tr><td>22</td><td>Twilight Journey</td><td>苿</td><td>是沐晴呢 - 夜晚的宁静</td><td>Long</td><td>550</td></tr>
-<tr><td>23</td><td>I Took A Pill In Ibiza</td><td>Dju de la va</td><td>Mike Posner - I Took A Pill In Ibiza (Seeb Remix)</td><td>Long</td><td>2000</td></tr>
-<tr><td>24</td><td>Cube</td><td>SrY-ABYSS</td><td>[Rolling Sky] Cheetah Mobile Games - 几何</td><td>Long</td><td>750</td></tr>
-<tr><td>25</td><td>Morning Light</td><td>Ariseform &amp; Dju de la va</td><td>Tobu - Mesmerize</td><td>Long</td><td>750</td></tr>
-<tr><td>26</td><td>Arctic</td><td>ttt &amp; Dju de la va</td><td>ttt - The Arctic feat. Tatajuo</td><td>Long</td><td>750</td></tr>
-<tr><td>27</td><td>Anniversary</td><td>ttt &amp; Dju de la va</td><td>ttt - Faster Remix</td><td>Long</td><td>750</td></tr>
-<tr><td>28</td><td>Detroit - The OPENING</td><td>Max冰焰 &amp; Dju de la va</td><td>Detroit: Become Human - Opening Theme</td><td>Long</td><td>750</td></tr>
-<tr><td>29</td><td>World</td><td>裴豐富 &amp; Dju de la va</td><td>灵空GTech - 皇家萌卫 纯音乐</td><td>Long</td><td>750</td></tr>
-<tr><td>30</td><td>Rain II</td><td>Dju de la va</td><td>Brian Crain - Rain</td><td>Extra Long</td><td>750</td></tr>
-<tr><td>31</td><td>Earth Vein</td><td>Tatajuo</td><td>Mark Petrie - Premonition</td><td>Long</td><td>750</td></tr>
-<tr><td>32</td><td>Cosmos</td><td>ttt</td><td>[Dancing Ball World] Cheetah Mobile Games - Cosmos</td><td>Long</td><td>750</td></tr>
-<tr><td>33</td><td>Sea World</td><td>HG1927</td><td>[Rolling Sky] Team Somatone - Sea World</td><td>Long</td><td>750</td></tr>
-<tr><td>34</td><td>Loneliness</td><td>川滇綫</td><td>川滇綫 - Loneliness / 川滇綫 - Snow</td><td>Extra Long</td><td>1000</td></tr>
-<tr><td>35</td><td>Celestial Fantasy</td><td>Zero_Lune89 &amp; NyanCat &amp; 我叫狗东溪</td><td>Ascetic - Loving But Lonely (Martian Remix)</td><td>Extra Long</td><td>1000</td></tr>
-<tr><td>36</td><td>The Destroyed City</td><td>Dju de la va</td><td>[Kokowääh 2] Dirk Reichardt - When The Light Comes</td><td>Long</td><td>1000</td></tr>
-<tr><td>37</td><td>Visions Of Tragedy</td><td>Boombit Games &amp; Dju de la va</td><td>Luca Francini - Cinematic Tension Builder</td><td>Long</td><td>1000</td></tr>
-<tr><td>38</td><td>Garden</td><td>Li Ga Yb</td><td>Li Ga Yb - Garden</td><td>Long</td><td>1000</td></tr>
-<tr><td>39</td><td>Rainy Garden</td><td>Tatajuo</td><td>Tatajuo - 雨中花园</td><td>Medium</td><td>1000</td></tr>
-<tr><td>40</td><td>Samurai</td><td>NtyElias &amp; Dju de la va</td><td>[Dancing Line] Maek - The Samurai</td><td>Long</td><td>1000</td></tr>
-<tr><td>41</td><td>Mystery</td><td>ttt &amp; Dju de la va</td><td>Chronos - The Mystery</td><td>Long</td><td>1000</td></tr>
-<tr><td>42</td><td>Trip Of The Dream</td><td>Tatajuo &amp; BirdLine &amp; Dju de la va</td><td>吳金黛 Judu Wu - 最近的天堂 The Nearest Heaven</td><td>Extra Long</td><td>1000</td></tr>
-<tr><td>43</td><td>Tranquil Settlement</td><td>Dju de la va</td><td>SoundGrenade - Gift Of Life (Love Piano)</td><td>Long</td><td>c2000</td></tr>
-<tr><td>44</td><td>Different World</td><td>Dju de la va</td><td>Alan Walker - Different World feat. Sofia Carson, K-391 &amp; CORSAK</td><td>Extra Long</td><td>2000</td></tr>
-<tr><td>45</td><td>Fantasy · Dream</td><td>Ariseform</td><td>satella - Reverie</td><td>Extra Long</td><td>2000</td></tr>
-<tr><td>46</td><td>Antarctica</td><td>Li Ga Yb</td><td>Li Ga Yb - Antarctica</td><td>Long</td><td>2000</td></tr>
-<tr><td>47</td><td>Coming Soon</td><td>Dju de la va</td><td>Lee Pomeroy &amp; David Michael - While The City Sleeps</td><td>Short</td><td>Free</td></tr>
-</table>
-</div>
-<p class="note">На телефоні таблицю можна прокручувати горизонтально.</p>
-</main>
-
-<script>
-const menuBtn=document.getElementById("menuBtn"),sideMenu=document.getElementById("sideMenu"),overlay=document.getElementById("overlay");
-function toggleMenu(){const open=sideMenu.classList.toggle("open");overlay.classList.toggle("show",open);menuBtn.textContent=open?"✕":"☰"}
-menuBtn.addEventListener("click",toggleMenu);
-overlay.addEventListener("click",toggleMenu);
-sideMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{if(sideMenu.classList.contains("open"))toggleMenu()}));
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sideMenu.classList.contains("open"))toggleMenu()});
-</script>
-</body>
-</html>
-```
+        <h2>Level List of the game</h2>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>№</th>
+                        <th>Level Name</th>
+                        <th>Level Author</th>
+                        <th>Level Soundtrack</th>
+                        <th>Duration</th>
+                        <th>Price (Coins)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>Starting</strong></td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
+                    <tr><td>2</td><td><strong>The Beginning (Old)</strong></td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
+                    <tr><td>3</td><td><strong>Harmony</strong></td><td>Assassin</td><td>Nicky Romero & Stadiumx - Harmony (Original Mix)</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>4</td><td><strong>Cold Night</strong></td><td>Marios1Gr</td><td>Eneide - Mysterious Moments</td><td>Long</td><td>300</td></tr>
+                    <tr><td>5</td><td><strong>Nostalgia</strong></td><td>NtyElias & GP0108</td><td>Eric Matyas - Our Mountain 003</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>6</td><td><strong>Moment Of Peace</strong></td><td>Dju de la va</td><td>Olafur Arnalds - This Place Is A Shelter</td><td>Long</td><td>300</td></tr>
+                    <tr><td>7</td><td><strong>Eutopia</strong></td><td>鸢烨酱Sakuya</td><td>Yoohsic Roomz / Yooh - Eutopia</td><td>Extra Long</td><td>300</td></tr>
+                    <tr><td>8</td><td><strong>Winter Of Doubt</strong></td><td>Dju de la va</td><td>Terry Devine-King & Tom Peters & Gavin Harrison - Introspective</td><td>Extra Long</td><td>300</td></tr>
+                    <tr><td>9</td><td><strong>Sunrise</strong></td><td>Dju de la va</td><td>Pedar B. Helland - Always</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>10</td><td><strong>The North</strong></td><td>Tatajuo & BirdLine</td><td>BrunuhVille - Song of the North</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>11</td><td><strong>Ocean</strong></td><td>舞线Faded</td><td>Kan R. Gao - Finding Paradise - Trailer Theme</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>12</td><td><strong>Cloud</strong></td><td>NtyElias & GP0108</td><td>[Rolling Sky] Zach Striefel - Cloud</td><td>Medium</td><td>300</td></tr>
+                    <tr><td>13</td><td><strong>Discord Community</strong></td><td>NtyElias & GP0108</td><td>theo5970 - The Challenge</td><td>Medium</td><td>550</td></tr>
+                    <tr><td>14</td><td><strong>Poetry Of Birds</strong></td><td>CXY-辰</td><td>许司 - 鸟之诗 (长笛版)</td><td>Long</td><td>2000</td></tr>
+                    <tr><td>15</td><td><strong>The Poem</strong></td><td>苿</td><td>垃目- 诗笺</td><td>Long</td><td>550</td></tr>
+                    <tr><td>16</td><td><strong>Lake Of Opportunity</strong></td><td>Dju de la va</td><td>Dan Skinner & Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
