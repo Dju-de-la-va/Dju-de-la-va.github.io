@@ -5,67 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Levels - Journey In The Sky Wiki</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
             line-height: 1.6;
             background-color: #1e1e24;
             color: #e1e1e6;
-            width: 65%; 
             max-width: 900px;
-            margin: 0 auto 0 32%; 
+            margin: 0 auto;
             padding: 20px;
-            box-sizing: border-box;
         }
 
+        /* =====================================
+           MENU BUTTON (Збережено з index.html)
+        ===================================== */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #242430;
+            color: #ffffff;
+            border: 1px solid #3a3a4a;
+            border-radius: 8px;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .menu-toggle:hover {
+            background-color: #2b3a4a;
+        }
+        .menu-toggle:active {
+            transform: scale(0.94);
+        }
+
+        /* =====================================
+           SIDE NAVIGATION (Збережено з index.html)
+        ===================================== */
         .side-menu-card {
             position: fixed;
-            top: 40px;
-            left: 2%; 
-            width: 26%; 
-            max-width: 240px;
-            background-color: #242430 !important;
-            padding: 20px 10px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            box-sizing: border-box;
-            z-index: 100;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            height: 100dvh;
+            padding: 85px 15px 20px;
+            background-color: #242430;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.45);
+            z-index: 1000;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
-        
+        .side-menu-card.open {
+            transform: translateX(0);
+        }
         .side-menu-card h3 {
             color: #ffffff;
-            margin: 0 0 15px 0;
+            margin: 0 0 15px;
             font-size: 1.1rem;
             border-bottom: 1px solid #3a3a4a;
             padding-bottom: 8px;
             text-align: center;
         }
-        
         .side-menu-links {
             display: flex;
             flex-direction: column;
-            align-items: center;
             gap: 10px;
         }
-        
         .side-menu-card .btn {
-            display: block !important;
-            width: 85% !important;
-            margin: 5px auto !important;
-            text-align: center !important;
-            background-color: #2b3a4a !important; 
-            color: #8ab4f8 !important; 
-            padding: 10px 5px !important;
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            background-color: #2b3a4a;
+            color: #8ab4f8;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 5px;
             font-weight: bold;
-            box-sizing: border-box;
-            transition: 0.3s;
-            border: none !important;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .side-menu-card .btn:hover {
+            background-color: #384d63;
+            color: #ffffff;
         }
 
-        .side-menu-card .btn:hover {
-            background-color: #384d63 !important;
-            color: #ffffff !important;
+        /* =====================================
+           OVERLAY (Збережено з index.html)
+        ===================================== */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .menu-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =====================================
+           MAIN CONTAINER (Чітко по центру сайту)
+        ===================================== */
+        .container {
+            background-color: #242430;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-top: 20px;
         }
 
         h2 {
@@ -75,42 +136,35 @@
             margin-top: 30px;
         }
 
-        .container {
-            background-color: #242430;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            box-sizing: border-box;
-        }
-
-        .gallery-block {
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .container img {
-            max-width: 100%;
+        /* =====================================
+           GALLERY & IMAGES (Ідеальне центрування)
+        ===================================== */
+        .gallery-image {
+            display: block;
+            width: 100%;
+            max-width: 480px;
             height: auto;
+            margin: 25px auto 8px;
             border-radius: 6px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-            margin-bottom: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+        .gallery-caption {
+            text-align: center;
+            color: #aaa;
+            margin-top: 0;
+            margin-bottom: 25px;
         }
 
-        .gallery-block p {
-            font-style: italic;
-            font-size: 0.9rem;
-            color: #b4b4b4;
-            margin-top: 2px;
-        }
-
-        /* 📊 СТИЛІ ДЛЯ СТИЛЬНИХ ТА АДАТИВНИХ ТАБЛИЦЬ */
+        /* =====================================
+           ADAPTIVE TABLES
+        ===================================== */
         .table-responsive {
             width: 100%;
             overflow-x: auto;
             margin: 20px 0;
             border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
@@ -118,13 +172,11 @@
             color: #e1e1e6;
             text-align: left;
         }
-
         th, td {
             padding: 12px 15px;
             border-bottom: 1px solid #3a3a4a;
             font-size: 0.95rem;
         }
-
         th {
             background-color: #2b3a4a;
             color: #8ab4f8;
@@ -133,57 +185,85 @@
             font-size: 0.85rem;
             letter-spacing: 0.5px;
         }
-
         tr:hover {
             background-color: #22222c;
         }
 
-        /* Адаптивні кнопки для посилань всередині таблиці */
-        table .btn-link {
-            color: #8ab4f8;
-            text-decoration: none;
+        /* =====================================
+           FOOTER & NAVIGATION BOTTOM
+        ===================================== */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
         }
-        table .btn-link:hover {
-            text-decoration: underline;
+        .btn {
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #384d63;
+            color: #ffffff;
+        }
+        footer {
+            text-align: center;
+            color: #999;
+            padding: 20px 10px;
+            font-size: 0.85rem;
         }
 
-        /* 📱 АДАПТИВНІСТЬ ДЛЯ АНДРОЇД ТА СМАРТФОНІВ */
-        @media (max-width: 1380px) {
+        /* =====================================
+           MOBILE ADAPTIVITY
+        ===================================== */
+        @media (max-width: 600px) {
             body {
-                width: 100%;
-                margin: 0 auto;
-                padding: 15px;
+                padding: 10px;
+                font-size: 15px;
             }
-            
+            .menu-toggle {
+                top: 12px;
+                left: 12px;
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
             .side-menu-card {
-                position: static;
-                width: 100%;
-                max-width: 100%;
-                margin-bottom: 20px;
+                width: 80%;
+                max-width: 280px;
+            }
+            .container {
                 padding: 15px;
             }
-            
-            .side-menu-links {
-                flex-direction: row; 
-                flex-wrap: wrap;     
-                justify-content: center;
-                gap: 10px;
+            h2 {
+                font-size: 1.3rem;
             }
-            
-            .side-menu-card .btn {
-                display: inline-block !important;
-                width: auto !important; 
-                margin: 0 !important;
-                padding: 8px 16px !important;
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            .nav-links .btn {
+                flex: 1 1 100%;
+                text-align: center;
+                padding: 10px;
             }
         }
     </style>
 </head>
 <body>
 
-    <div class="side-menu-card">
+    <!-- MENU BUTTON -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+    <!-- NAVIGATION SLIDE CARD -->
+    <div class="side-menu-card" id="sideMenu">
         <h3>Navigation</h3>
-        <div class="side-menu-links"> 
+        <div class="side-menu-links">
             <a href="index.html" class="btn">Home</a>
             <a href="levels.html" class="btn">Levels</a>
             <a href="#" class="btn">Team Staff</a>
@@ -191,15 +271,18 @@
         </div>
     </div>
 
+    <!-- OVERLAY BACKGROUND -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- MAIN CENTRED BLOCK -->
     <div class="container">
         <h2>Gallery</h2>
-        <div class="gallery-block">
-            <img src="https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba" alt="Level Menu">
-            <p>Level Menu of the game</p>
-        </div>
-        <div class="gallery-block">
-            <img src="https://github.com/user-attachments/assets/7a3f493b-3967-4f95-ae44-067b28d72560" alt="Level List Screen">
-        </div>
+        
+        <img src="https://github.com" class="gallery-image" alt="Level Menu">
+        <p class="gallery-caption"><i>Level Menu of the game</i></p>
+
+        <img src="https://github.com" class="gallery-image" alt="Level List Screen">
+        <p class="gallery-caption"><i>Level Selection screen showing lists of available content</i></p>
 
         <h2>Level Durations</h2>
         <div class="table-responsive">
@@ -211,22 +294,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td><strong>Short</strong></td>
-                        <td>&lt; 40 sec.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Medium</strong></td>
-                        <td>&ge; 40 sec. &lt; 100 sec.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Long</strong></td>
-                        <td>&ge; 100 sec. &lt; 160 sec.</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Extra Long</strong></td>
-                        <td>&ge; 160 sec.</td>
-                    </tr>
+                    <tr><td><strong>Short</strong></td><td>&lt; 40 sec.</td></tr>
+                    <tr><td><strong>Medium</strong></td><td>&ge; 40 sec. &lt; 100 sec.</td></tr>
+                    <tr><td><strong>Long</strong></td><td>&ge; 100 sec. &lt; 160 sec.</td></tr>
+                    <tr><td><strong>Extra Long</strong></td><td>&ge; 160 sec.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -261,7 +332,7 @@
                     <tr><td>14</td><td><strong>Poetry Of Birds</strong></td><td>CXY-辰</td><td>许司 - 鸟之诗 (长笛版)</td><td>Long</td><td>2000</td></tr>
                     <tr><td>15</td><td><strong>The Poem</strong></td><td>苿</td><td>垃目- 诗笺</td><td>Long</td><td>550</td></tr>
                     <tr><td>16</td><td><strong>Lake Of Opportunity</strong></td><td>Dju de la va</td><td>Dan Skinner & Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
-                                        <tr><td>16</td><td><strong>Lake Of Opportunity</strong></td><td>Dju de la va</td><td>Dan Skinner & Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
+                    <tr><td>16</td><td><strong>Lake Of Opportunity</strong></td><td>Dju de la va</td><td>Dan Skinner & Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
                     <tr><td>17</td><td><strong>Environment</strong></td><td>舞线Faded & Lwtiky Studio & Dju de la va</td><td>CMJ - 山海不可平</td><td>Long</td><td>550</td></tr>
                     <tr><td>18</td><td><strong>The End Remix</strong></td><td>蓝焰TheBlueFire & Loxfullsece_芙 & TigerCat & JimTsai</td><td>TDX特仑苏 - The End (Remix)</td><td>Long</td><td>550</td></tr>
                     <tr><td>19</td><td><strong>Land Of The Love</strong></td><td>Dju de la va</td><td>Gibran Alcocer - Idea 10</td><td>Long</td><td>550</td></tr>
@@ -298,7 +369,122 @@
         </div>
     </div>
 
-    <p style="text-align: center; margin-top: 30px;"><small>JITS Studio | 2026 | Contact Data: jitsstudioofficial04092022@gmail.com</small></p>
+    <!-- =====================================
+     FOOTER
+===================================== -->
 
+<footer>
+
+    <small>
+        JITS Studio | 2026 |
+        Contact Data:
+        jitsstudioofficial04092022@gmail.com
+    </small>
+
+</footer>
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+
+    function openMenu() {
+
+        sideMenu.classList.add("open");
+
+        menuOverlay.classList.add("show");
+
+        menuToggle.textContent = "✕";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+
+    function closeMenu() {
+
+        sideMenu.classList.remove("open");
+
+        menuOverlay.classList.remove("show");
+
+        menuToggle.textContent = "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+
+    function toggleMenu() {
+
+        if (
+            sideMenu.classList.contains("open")
+        ) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+
+    }
+
+
+    /* Кнопка ☰ / ✕ */
+
+    menuToggle.addEventListener(
+        "click",
+        toggleMenu
+    );
+
+
+    /* Клік по затемненню закриває меню */
+
+    menuOverlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    /* Escape закриває меню */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+
+        }
+    );
+
+
+    /* Після натискання пункту меню закриваємо його */
+
+    document
+        .querySelectorAll(".side-menu-card .btn")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+</script>
 </body>
 </html>
