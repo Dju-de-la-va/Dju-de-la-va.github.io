@@ -1,0 +1,143 @@
+```html
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Levels — Journey In The Sky Wiki</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,sans-serif;background:#111;color:#eee}
+body{background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.7)),url("https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba") center/cover fixed no-repeat}
+.menu-btn{position:fixed;top:18px;left:18px;z-index:1001;width:48px;height:48px;border:0;border-radius:12px;background:rgba(20,20,20,.9);color:#fff;font-size:26px;cursor:pointer;box-shadow:0 4px 15px #0008}
+.side-menu{position:fixed;top:0;left:-280px;z-index:1000;width:280px;height:100dvh;padding:80px 20px 20px;background:rgba(18,18,18,.97);box-shadow:5px 0 25px #0008;transition:left .3s;overflow-y:auto}
+.side-menu.open{left:0}
+.side-menu a{display:block;padding:14px 16px;margin:6px 0;border-radius:10px;color:#fff;text-decoration:none;background:#ffffff0d}
+.side-menu a:hover{background:#ffffff1c}
+.overlay{position:fixed;inset:0;z-index:999;background:#0008;opacity:0;visibility:hidden;transition:.3s}
+.overlay.show{opacity:1;visibility:visible}
+.container{width:min(1400px,calc(100% - 30px));margin:40px auto;padding:35px;background:rgba(25,25,25,.9);border:1px solid #ffffff18;border-radius:20px;box-shadow:0 10px 40px #0009;backdrop-filter:blur(8px)}
+h1{text-align:center;font-size:38px;margin:0 0 30px}
+h2{margin-top:35px;border-bottom:1px solid #ffffff22;padding-bottom:10px}
+.gallery{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.gallery figure{margin:0;max-width:480px;width:100%;text-align:center}
+.gallery img{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #ffffff22}
+.gallery figcaption{margin-top:8px;color:#bbb}
+.table-wrap{width:100%;overflow-x:auto;border-radius:12px}
+table{width:100%;border-collapse:collapse;min-width:900px;background:#111b}
+th,td{padding:11px 10px;border:1px solid #ffffff18;text-align:left}
+th{background:#ffffff12;white-space:nowrap}
+tr:nth-child(even){background:#ffffff06}
+.duration td:first-child{font-weight:bold}
+.note{color:#aaa;font-size:14px;margin-top:8px}
+@media(max-width:700px){
+.container{width:calc(100% - 16px);margin:20px auto;padding:20px 12px;border-radius:16px}
+h1{font-size:29px}
+h2{font-size:22px}
+.gallery{gap:14px}
+.menu-btn{top:12px;left:12px}
+}
+</style>
+</head>
+<body>
+<button class="menu-btn" id="menuBtn">☰</button>
+<nav class="side-menu" id="sideMenu">
+<a href="index.html">Home</a>
+<a href="levels.html">Levels</a>
+<a href="characters.html">Characters</a>
+<a href="music.html">Music</a>
+</nav>
+<div class="overlay" id="overlay"></div>
+
+<main class="container">
+<h1>Levels</h1>
+
+<h2>Gallery</h2>
+<div class="gallery">
+<figure>
+<img src="https://github.com/user-attachments/assets/cb4b08e7-3c9d-4c3d-9ee4-efce8ff246ba" alt="Level Menu of the game">
+<figcaption>Level Menu of the game</figcaption>
+</figure>
+<figure>
+<img src="https://github.com/user-attachments/assets/7a3f493b-3967-4f95-ae44-067b28d72560" alt="Levels">
+</figure>
+</div>
+
+<h2>Level Durations</h2>
+<div class="table-wrap">
+<table class="duration">
+<tr><th>Category</th><th>Duration</th></tr>
+<tr><td>Short</td><td>&lt; 40 sec.</td></tr>
+<tr><td>Medium</td><td>≥ 40 sec. &lt; 100 sec.</td></tr>
+<tr><td>Long</td><td>≥ 100 sec. &lt; 160 sec.</td></tr>
+<tr><td>Extra Long</td><td>≥ 160 sec.</td></tr>
+</table>
+</div>
+
+<h2>Complete Level List</h2>
+<div class="table-wrap">
+<table>
+<tr><th>Level Number</th><th>Level Name</th><th>Level Author</th><th>Level Soundtrack</th><th>Duration</th><th>Price (Coins)</th></tr>
+<tr><td>1</td><td>Starting</td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
+<tr><td>2</td><td>The Beginning (Old)</td><td>Dju de la va</td><td>[Dancing Line] Lukasz Michalski - The Beginning</td><td>Short</td><td>Free</td></tr>
+<tr><td>3</td><td>Harmony</td><td>Assassin</td><td>Nicky Romero &amp; Stadiumx - Harmony (Original Mix)</td><td>Medium</td><td>300</td></tr>
+<tr><td>4</td><td>Cold Night</td><td>Marios1Gr</td><td>Eneide - Mysterious Moments</td><td>Long</td><td>300</td></tr>
+<tr><td>5</td><td>Nostalgia</td><td>NtyElias &amp; GP0108</td><td>Eric Matyas - Our Mountain 003</td><td>Medium</td><td>300</td></tr>
+<tr><td>6</td><td>Moment Of Peace</td><td>Dju de la va</td><td>Olafur Arnalds - This Place Is A Shelter</td><td>Long</td><td>300</td></tr>
+<tr><td>7</td><td>Eutopia</td><td>鸢烨酱Sakuya</td><td>Yoohsic Roomz / Yooh - Eutopia</td><td>Extra Long</td><td>300</td></tr>
+<tr><td>8</td><td>Winter Of Doubt</td><td>Dju de la va</td><td>Terry Devine-King &amp; Tom Peters &amp; Gavin Harrison - Introspective</td><td>Extra Long</td><td>300</td></tr>
+<tr><td>9</td><td>Sunrise</td><td>Dju de la va</td><td>Pedar B. Helland - Always</td><td>Medium</td><td>300</td></tr>
+<tr><td>10</td><td>The North</td><td>Tatajuo &amp; BirdLine</td><td>BrunuhVille - Song of the North</td><td>Medium</td><td>300</td></tr>
+<tr><td>11</td><td>Ocean</td><td>舞线Faded</td><td>Kan R. Gao - Finding Paradise - Trailer Theme</td><td>Medium</td><td>300</td></tr>
+<tr><td>12</td><td>Cloud</td><td>NtyElias &amp; GP0108</td><td>[Rolling Sky] Zach Striefel - Cloud</td><td>Medium</td><td>300</td></tr>
+<tr><td>13</td><td>Discord Community</td><td>NtyElias &amp; GP0108</td><td>theo5970 - The Challenge</td><td>Medium</td><td>550</td></tr>
+<tr><td>14</td><td>Poetry Of Birds</td><td>CXY-辰</td><td>许司 - 鸟之诗 (长笛版)</td><td>Long</td><td>2000</td></tr>
+<tr><td>15</td><td>The Poem</td><td>苿</td><td>垃目- 诗笺</td><td>Long</td><td>550</td></tr>
+<tr><td>16</td><td>Lake Of Opportunity</td><td>Dju de la va</td><td>Dan Skinner &amp; Adam Skinner - Reunited Again</td><td>Extra Long</td><td>550</td></tr>
+<tr><td>17</td><td>Environment</td><td>舞线Faded &amp; Lwtiky Studio &amp; Dju de la va</td><td>CMJ - 山海不可平</td><td>Long</td><td>550</td></tr>
+<tr><td>18</td><td>The End Remix</td><td>蓝焰TheBlueFire &amp; Loxfullsece_芙 &amp; TigerCat &amp; JimTsai</td><td>TDX特仑苏 - The End (Remix)</td><td>Long</td><td>550</td></tr>
+<tr><td>19</td><td>Land Of The Love</td><td>Dju de la va</td><td>Gibran Alcocer - Idea 10</td><td>Long</td><td>550</td></tr>
+<tr><td>20</td><td>Thriller</td><td>Dju de la va</td><td>Soundridemusic - Dark Water</td><td>Medium</td><td>2000</td></tr>
+<tr><td>21</td><td>Escaping The Ruins</td><td>羽焰晨星 &amp; 随风prodis</td><td>Gareth Cocker - Escaping The Ruins</td><td>Long</td><td>550</td></tr>
+<tr><td>22</td><td>Twilight Journey</td><td>苿</td><td>是沐晴呢 - 夜晚的宁静</td><td>Long</td><td>550</td></tr>
+<tr><td>23</td><td>I Took A Pill In Ibiza</td><td>Dju de la va</td><td>Mike Posner - I Took A Pill In Ibiza (Seeb Remix)</td><td>Long</td><td>2000</td></tr>
+<tr><td>24</td><td>Cube</td><td>SrY-ABYSS</td><td>[Rolling Sky] Cheetah Mobile Games - 几何</td><td>Long</td><td>750</td></tr>
+<tr><td>25</td><td>Morning Light</td><td>Ariseform &amp; Dju de la va</td><td>Tobu - Mesmerize</td><td>Long</td><td>750</td></tr>
+<tr><td>26</td><td>Arctic</td><td>ttt &amp; Dju de la va</td><td>ttt - The Arctic feat. Tatajuo</td><td>Long</td><td>750</td></tr>
+<tr><td>27</td><td>Anniversary</td><td>ttt &amp; Dju de la va</td><td>ttt - Faster Remix</td><td>Long</td><td>750</td></tr>
+<tr><td>28</td><td>Detroit - The OPENING</td><td>Max冰焰 &amp; Dju de la va</td><td>Detroit: Become Human - Opening Theme</td><td>Long</td><td>750</td></tr>
+<tr><td>29</td><td>World</td><td>裴豐富 &amp; Dju de la va</td><td>灵空GTech - 皇家萌卫 纯音乐</td><td>Long</td><td>750</td></tr>
+<tr><td>30</td><td>Rain II</td><td>Dju de la va</td><td>Brian Crain - Rain</td><td>Extra Long</td><td>750</td></tr>
+<tr><td>31</td><td>Earth Vein</td><td>Tatajuo</td><td>Mark Petrie - Premonition</td><td>Long</td><td>750</td></tr>
+<tr><td>32</td><td>Cosmos</td><td>ttt</td><td>[Dancing Ball World] Cheetah Mobile Games - Cosmos</td><td>Long</td><td>750</td></tr>
+<tr><td>33</td><td>Sea World</td><td>HG1927</td><td>[Rolling Sky] Team Somatone - Sea World</td><td>Long</td><td>750</td></tr>
+<tr><td>34</td><td>Loneliness</td><td>川滇綫</td><td>川滇綫 - Loneliness / 川滇綫 - Snow</td><td>Extra Long</td><td>1000</td></tr>
+<tr><td>35</td><td>Celestial Fantasy</td><td>Zero_Lune89 &amp; NyanCat &amp; 我叫狗东溪</td><td>Ascetic - Loving But Lonely (Martian Remix)</td><td>Extra Long</td><td>1000</td></tr>
+<tr><td>36</td><td>The Destroyed City</td><td>Dju de la va</td><td>[Kokowääh 2] Dirk Reichardt - When The Light Comes</td><td>Long</td><td>1000</td></tr>
+<tr><td>37</td><td>Visions Of Tragedy</td><td>Boombit Games &amp; Dju de la va</td><td>Luca Francini - Cinematic Tension Builder</td><td>Long</td><td>1000</td></tr>
+<tr><td>38</td><td>Garden</td><td>Li Ga Yb</td><td>Li Ga Yb - Garden</td><td>Long</td><td>1000</td></tr>
+<tr><td>39</td><td>Rainy Garden</td><td>Tatajuo</td><td>Tatajuo - 雨中花园</td><td>Medium</td><td>1000</td></tr>
+<tr><td>40</td><td>Samurai</td><td>NtyElias &amp; Dju de la va</td><td>[Dancing Line] Maek - The Samurai</td><td>Long</td><td>1000</td></tr>
+<tr><td>41</td><td>Mystery</td><td>ttt &amp; Dju de la va</td><td>Chronos - The Mystery</td><td>Long</td><td>1000</td></tr>
+<tr><td>42</td><td>Trip Of The Dream</td><td>Tatajuo &amp; BirdLine &amp; Dju de la va</td><td>吳金黛 Judu Wu - 最近的天堂 The Nearest Heaven</td><td>Extra Long</td><td>1000</td></tr>
+<tr><td>43</td><td>Tranquil Settlement</td><td>Dju de la va</td><td>SoundGrenade - Gift Of Life (Love Piano)</td><td>Long</td><td>c2000</td></tr>
+<tr><td>44</td><td>Different World</td><td>Dju de la va</td><td>Alan Walker - Different World feat. Sofia Carson, K-391 &amp; CORSAK</td><td>Extra Long</td><td>2000</td></tr>
+<tr><td>45</td><td>Fantasy · Dream</td><td>Ariseform</td><td>satella - Reverie</td><td>Extra Long</td><td>2000</td></tr>
+<tr><td>46</td><td>Antarctica</td><td>Li Ga Yb</td><td>Li Ga Yb - Antarctica</td><td>Long</td><td>2000</td></tr>
+<tr><td>47</td><td>Coming Soon</td><td>Dju de la va</td><td>Lee Pomeroy &amp; David Michael - While The City Sleeps</td><td>Short</td><td>Free</td></tr>
+</table>
+</div>
+<p class="note">На телефоні таблицю можна прокручувати горизонтально.</p>
+</main>
+
+<script>
+const menuBtn=document.getElementById("menuBtn"),sideMenu=document.getElementById("sideMenu"),overlay=document.getElementById("overlay");
+function toggleMenu(){const open=sideMenu.classList.toggle("open");overlay.classList.toggle("show",open);menuBtn.textContent=open?"✕":"☰"}
+menuBtn.addEventListener("click",toggleMenu);
+overlay.addEventListener("click",toggleMenu);
+sideMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{if(sideMenu.classList.contains("open"))toggleMenu()}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&sideMenu.classList.contains("open"))toggleMenu()});
+</script>
+</body>
+</html>
+```
