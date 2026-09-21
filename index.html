@@ -1,205 +1,960 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Journey In The Sky Wiki</title>
-    <style>
+
+```
+<title>Journey In The Sky Wiki</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #1e1e24;
+        color: #e1e1e6;
+
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    /* =====================================
+       MENU BUTTON
+    ===================================== */
+
+    .menu-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+
+        width: 50px;
+        height: 50px;
+
+        background-color: #242430;
+        color: #ffffff;
+
+        border: 1px solid #3a3a4a;
+        border-radius: 8px;
+
+        font-size: 25px;
+        line-height: 1;
+
+        cursor: pointer;
+
+        z-index: 1001;
+
+        box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+
+        transition:
+            background-color 0.2s ease,
+            transform 0.2s ease;
+    }
+
+    .menu-toggle:hover {
+        background-color: #2b3a4a;
+    }
+
+    .menu-toggle:active {
+        transform: scale(0.94);
+    }
+
+
+    /* =====================================
+       SIDE NAVIGATION
+    ===================================== */
+
+    .side-menu-card {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+
+        width: 260px;
+        height: 100vh;
+        height: 100dvh;
+
+        padding: 85px 15px 20px;
+
+        background-color: #242430;
+
+        box-shadow: 4px 0 15px rgba(0,0,0,0.45);
+
+        z-index: 1000;
+
+        overflow-y: auto;
+        overscroll-behavior: contain;
+
+        transform: translateX(-100%);
+
+        transition: transform 0.3s ease;
+    }
+
+    .side-menu-card.open {
+        transform: translateX(0);
+    }
+
+    .side-menu-card h3 {
+        color: #ffffff;
+
+        margin: 0 0 15px;
+
+        font-size: 1.1rem;
+
+        border-bottom: 1px solid #3a3a4a;
+
+        padding-bottom: 8px;
+
+        text-align: center;
+    }
+
+    .side-menu-links {
+        display: flex;
+        flex-direction: column;
+
+        gap: 10px;
+    }
+
+    .side-menu-card .btn {
+        display: block;
+
+        width: 100%;
+
+        margin: 0;
+
+        padding: 10px;
+
+        text-align: center;
+
+        background-color: #2b3a4a;
+
+        color: #8ab4f8;
+
+        text-decoration: none;
+
+        border-radius: 5px;
+
+        font-weight: bold;
+
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease;
+    }
+
+    .side-menu-card .btn:hover {
+        background-color: #384d63;
+        color: #ffffff;
+    }
+
+
+    /* =====================================
+       OVERLAY
+    ===================================== */
+
+    .menu-overlay {
+        position: fixed;
+
+        inset: 0;
+
+        background-color: rgba(0,0,0,0.5);
+
+        z-index: 999;
+
+        opacity: 0;
+        visibility: hidden;
+
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+    }
+
+    .menu-overlay.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    /* =====================================
+       HEADER
+    ===================================== */
+
+    header {
+        text-align: center;
+
+        padding: 60px 20px;
+
+        background-image:
+            linear-gradient(
+                rgba(0,0,0,0.25),
+                rgba(0,0,0,0.25)
+            ),
+            url('Level20Icon.png');
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+
+        border-radius: 8px;
+
+        margin-bottom: 20px;
+
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        color: #ffffff;
+
+        margin: 0 0 10px;
+
+        font-size: 2rem;
+    }
+
+    h2 {
+        color: #b4b4b4;
+
+        border-bottom: 1px solid #3a3a4a;
+
+        padding-bottom: 8px;
+
+        margin-top: 30px;
+    }
+
+
+    /* =====================================
+       MAIN CONTAINER
+    ===================================== */
+
+    .container {
+        background-color: #242430;
+
+        padding: 25px;
+
+        border-radius: 8px;
+
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+
+    /* =====================================
+       GAME CARD
+    ===================================== */
+
+    .game-card {
+        display: flex;
+
+        align-items: center;
+
+        gap: 20px;
+
+        background-color: #22222c;
+
+        padding: 15px;
+
+        border-radius: 6px;
+
+        margin: 20px 0;
+    }
+
+    .game-icon {
+        width: 150px;
+
+        max-width: 100%;
+
+        height: auto;
+
+        border-radius: 4px;
+
+        box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+
+    /* =====================================
+       BUTTONS
+    ===================================== */
+
+    .nav-links {
+        display: flex;
+
+        gap: 15px;
+
+        flex-wrap: wrap;
+
+        margin-top: 15px;
+    }
+
+    .btn {
+        background-color: #2b3a4a;
+
+        color: #8ab4f8;
+
+        padding: 8px 16px;
+
+        text-decoration: none;
+
+        border-radius: 4px;
+
+        font-weight: bold;
+
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #384d63;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================
+       GALLERY
+    ===================================== */
+
+    .gallery-image {
+        display: block;
+
+        width: 100%;
+
+        max-width: 480px;
+
+        height: auto;
+
+        margin: 25px auto 8px;
+
+        border-radius: 6px;
+
+        box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    .gallery-caption {
+        text-align: center;
+
+        color: #aaa;
+
+        margin-top: 0;
+    }
+
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+
+    footer {
+        text-align: center;
+
+        color: #999;
+
+        padding: 20px 10px;
+
+        font-size: 0.85rem;
+    }
+
+
+    /* =====================================
+       TABLETS
+    ===================================== */
+
+    @media (max-width: 600px) {
+
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            line-height: 1.6;
-            background-color: #1e1e24;
-            color: #e1e1e6;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
+            padding: 10px;
+
+            font-size: 15px;
         }
+
+        .menu-toggle {
+            top: 12px;
+            left: 12px;
+
+            width: 45px;
+            height: 45px;
+
+            font-size: 22px;
+        }
+
         .side-menu-card {
-            position: fixed;
-            top: 40px;
-            left: calc(50% - 450px - 260px); 
-            width: 240px; 
-            background-color: #242430 !important;
-            padding: 20px 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            box-sizing: border-box;
-            z-index: 100;
+            width: 80%;
+            max-width: 280px;
         }
-        .side-menu-card h3 {
-            color: #ffffff;
-            margin: 0 0 15px 0;
-            font-size: 1.1rem;
-            border-bottom: 1px solid #3a3a4a;
-            padding-bottom: 8px;
-            text-align: center;
-        }
-        .side-menu-links {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .side-menu-card .btn {
-            display: block !important;
-            width: 85% !important;
-            margin: 5px auto !important;
-            text-align: center !important;
-            background-color: #2b3a4a !important; 
-            color: #8ab4f8 !important; 
-            padding: 10px 5px !important;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            box-sizing: border-box;
-            transition: 0.3s;
-            border: none !important;
-        }
-        .side-menu-card .btn:hover {
-            background-color: #2b3a4a !important;
-            color: #ffffff !important;
-        }
+
         header {
-           text-align: center;
-           padding: 60px 20px;
-           background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)), url('Level20Icon.png');
-           background-size: cover;
-           background-position: center;
-           background-repeat: no-repeat;
-           border-radius: 8px;
-           margin-bottom: 20px;
-           box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            padding: 50px 15px;
+
+            margin-bottom: 12px;
         }
+
         h1 {
-            color: #ffffff;
-            margin: 0 0 10px 0;
+            font-size: 1.55rem;
+
+            line-height: 1.25;
         }
-        h2 {
-            color: #b4b4b4;
-            border-bottom: 1px solid #3a3a4a;
-            padding-bottom: 8px;
-            margin-top: 30px;
+
+        header p {
+            font-size: 0.9rem;
         }
+
         .container {
-            background-color: #242430;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .game-card {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            background-color: #22222c;
             padding: 15px;
-            border-radius: 6px;
-            margin: 20px 0;
         }
-        .game-icon {
-            width: 150px;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.6);
+
+        h2 {
+            font-size: 1.3rem;
         }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-top: 15px;
-        }
-        .sidebar-navigation .nav-links {
+
+        .game-card {
             flex-direction: column;
-            gap: 10px;
-        }
-        .btn {
-            background-color: #2b3a4a;
-            color: #8ab4f8;
-            padding: 8px 16px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-        .sidebar-navigation .btn {
-            display: block;
+
             text-align: center;
+
+            gap: 12px;
         }
-        .btn:hover {
-            background-color: #384d63;
-            color: #fff;
+
+        .game-icon {
+            width: 140px;
         }
-    </style>
+
+        .nav-links {
+            gap: 8px;
+        }
+
+        .nav-links .btn {
+            flex: 1 1 100%;
+
+            text-align: center;
+
+            padding: 10px;
+        }
+
+        .gallery-image {
+            width: 100%;
+
+            max-width: 100%;
+        }
+
+        footer {
+            font-size: 0.75rem;
+        }
+    }
+
+
+    /* =====================================
+       VERY SMALL PHONES
+    ===================================== */
+
+    @media (max-width: 380px) {
+
+        body {
+            padding: 7px;
+        }
+
+        .container {
+            padding: 12px;
+        }
+
+        h1 {
+            font-size: 1.35rem;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+        }
+    }
+</style>
+```
+
 </head>
+
 <body>
-    <div class="side-menu-card">
-        <h3>Navigation</h3>
-        <div class="nav-links">
-            <a href="#" class="btn">Home  </a>
-            <a href="#" class="btn">Levels</a>
-            <a href="#" class="btn">Team Staff</a>
-            <a href="#" class="btn">Disclaimer</a>
-        </div>
+
+```
+<!-- =====================================
+     MENU BUTTON
+===================================== -->
+
+<button
+    class="menu-toggle"
+    id="menuToggle"
+    aria-label="Open navigation"
+    aria-expanded="false"
+>
+    ☰
+</button>
+
+
+<!-- =====================================
+     NAVIGATION
+===================================== -->
+
+<div class="side-menu-card" id="sideMenu">
+
+    <h3>Navigation</h3>
+
+    <div class="side-menu-links">
+
+        <a href="#" class="btn">
+            Home
+        </a>
+
+        <a href="#" class="btn">
+            Levels
+        </a>
+
+        <a href="#" class="btn">
+            Team Staff
+        </a>
+
+        <a href="#" class="btn">
+            Disclaimer
+        </a>
+
     </div>
-    <div class="main-content-wrapper">
+
+</div>
+
+
+<!-- Overlay -->
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
+
+
+<!-- =====================================
+     MAIN CONTENT
+===================================== -->
+
+<div class="main-content-wrapper">
+
+    <!-- HEADER -->
+
     <header>
-        <h1>Welcome to the Journey In The Sky Wiki!</h1>
-        <p>Official informational portal for players and fans</p>
+
+        <h1>
+            Welcome to the Journey In The Sky Wiki!
+        </h1>
+
+        <p>
+            Official informational portal for players and fans
+        </p>
+
     </header>
 
+
     <div class="container">
-        <h2>Introduction</h2>
-        <p><strong>Journey In The Sky</strong> is a Dancing Line Fanmade Game, developed by JITS Studio. Explore every level of this game, follow the rhythm and avoid the obstacles, unless reaching to the end, using music.</p>
-        <p>Journey In The Sky includes 47 levels. All of them have their own story, and with each level reaches difficulty.</p>
 
-        <h2>Game Icon</h2>
+        <!-- INTRODUCTION -->
+
+        <h2>
+            Introduction
+        </h2>
+
+        <p>
+            <strong>Journey In The Sky</strong> is a Dancing Line Fanmade
+            Game, developed by JITS Studio. Explore every level of this
+            game, follow the rhythm and avoid the obstacles, unless
+            reaching to the end, using music.
+        </p>
+
+        <p>
+            Journey In The Sky includes 47 levels. All of them have
+            their own story, and with each level reaches difficulty.
+        </p>
+
+
+        <!-- GAME ICON -->
+
+        <h2>
+            Game Icon
+        </h2>
+
         <div class="game-card">
-            <img src="https://github.com/user-attachments/assets/c943ec35-0827-41af-9a95-d245e42c62ad"class="game-icon">
-            <p>Game Icon for version V1.2.0 with update of new level Thriller</p>
-            <div>
-            </div>
-        </div>
-        <h2>Version Information</h2>
-        <p>First version: V1.0.0 4th September 2022 (04.09.2022)</p>
-        <p>Latest version: v1.2.0 24th July 2025 (24.07.2026)</p>
 
-        <h2>Gallery</h2>
-        <img src="https://github.com/user-attachments/assets/b21d63d5-ba5b-40ab-9647-84fd454a8966" height="270" width="480">
-        <p><i>Screenshot from the level Starting</i></p>
-        <img src="https://github.com/user-attachments/assets/160ae49c-0753-4695-907e-7833466302ed" height="270" width="480">
-        <p><i>Screenshot from the level Lake Of Opportunity</i></p>
-        <img src="https://github.com/user-attachments/assets/1d713833-178f-426c-837c-e44fa99b8ad5" height="270" width="480">
-        <p><i>Screenshot from the level Sunrise</i></p>
-        <img src="https://github.com/user-attachments/assets/c700efc3-315d-4c93-b103-28f971541459" height="270" width="480">
-        <p><i>Screenshot from the level Poetry Of Birds</i></p>
-        <img src="https://github.com/user-attachments/assets/cccca477-c60b-4a92-9831-fd2fa9598f20" height="270" width="480">
-        <p><i>Screenshot from the level Thriller</i></p>
-        <img src="https://github.com/user-attachments/assets/f853f852-0f86-4a31-93aa-fafac7555142" height="270" width="480">
-        <p><i>Screenshot from the level Garden</i></p>
-        <img src="https://github.com/user-attachments/assets/bf381977-c769-42c4-bd0d-38e0897142f2" height="270" width="480">
-        <p><i>Screenshot from the level Celestial Fantasy</i></p>
+            <img
+                src="https://github.com/user-attachments/assets/c943ec35-0827-41af-9a95-d245e42c62ad"
+                class="game-icon"
+                alt="Journey In The Sky Game Icon"
+            >
 
-        <h2>Follow Us</h2>
-        <div class="nav-links">
-            
-        <div class="nav-links">
-            <a href="https://youtube.com" target="_blank" class="btn">YouTube</a>
-            <a href="https://space.bilibili.com/3493137997629710" target="_blank" class="btn">Bilibili</a>
-            <a href="https://discord.com/invite/knfkVtSxxs" target="_blank" class="btn">Discord</a>
-            <a href="https://qm.qq.com/q/4wqVLANR4k" target="_blank" class="btn">QQ</a>
-            <a href="https://www.taptap.io/app/33561168" target="_blank" class="btn">TapTap</a>
-            <a href="https://chinadlrs.com/app/?id=34" target="_blank" class="btn">DL RS Community Official Website</a>
+            <p>
+                Game Icon for version V1.2.0 with update of new level
+                Thriller
+            </p>
+
         </div>
+
+
+        <!-- VERSION -->
+
+        <h2>
+            Version Information
+        </h2>
+
+        <p>
+            First version: V1.0.0 4th September 2022 (04.09.2022)
+        </p>
+
+        <p>
+            Latest version: V1.2.0 24th July 2025 (24.07.2025)
+        </p>
+
+
+        <!-- GALLERY -->
+
+        <h2>
+            Gallery
+        </h2>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/b21d63d5-ba5b-40ab-9647-84fd454a8966"
+            class="gallery-image"
+            alt="Starting level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Starting
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/160ae49a-0753-4695-907e-7833466302ed"
+            class="gallery-image"
+            alt="Lake Of Opportunity level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Lake Of Opportunity
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/1d713833-178f-426c-837c-e44fa99b8ad5"
+            class="gallery-image"
+            alt="Sunrise level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Sunrise
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/c700efc3-315d-4c93-b103-28f971541459"
+            class="gallery-image"
+            alt="Poetry Of Birds level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Poetry Of Birds
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/cccca477-c60b-4a92-9831-fd2fa9598f20"
+            class="gallery-image"
+            alt="Thriller level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Thriller
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/f853f852-0f86-4a31-93aa-fafac7555142"
+            class="gallery-image"
+            alt="Garden level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Garden
+            </i>
+        </p>
+
+
+        <img
+            src="https://github.com/user-attachments/assets/bf381977-c769-42c4-bd0d-38e0897142f2"
+            class="gallery-image"
+            alt="Celestial Fantasy level"
+        >
+
+        <p class="gallery-caption">
+            <i>
+                Screenshot from the level Celestial Fantasy
+            </i>
+        </p>
+
+
+        <!-- SOCIALS -->
+
+        <h2>
+            Follow Us
+        </h2>
+
+        <div class="nav-links">
+
+            <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                YouTube
+            </a>
+
+            <a
+                href="https://space.bilibili.com/3493137997629710"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                Bilibili
+            </a>
+
+            <a
+                href="https://discord.com/invite/knfkVtSxxs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                Discord
+            </a>
+
+            <a
+                href="https://qm.qq.com/q/4wqVLANR4k"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                QQ
+            </a>
+
+            <a
+                href="https://www.taptap.io/app/33561168"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                TapTap
+            </a>
+
+            <a
+                href="https://chinadlrs.com/app/?id=34"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn"
+            >
+                DL RS Community Official Website
+            </a>
+
         </div>
-        <h2>Histroy</h2>
-        <p>Idea about making Dancing Line Fanmade Game was born at August 2022. At that time Dju de la va made 5 levels and 3 of them was published, meanwhile 2 other was not finished. Idea was simple: combine 5 ready levels in one game.
-        From the August 2022 Dju de la va worked with future big game alone and published 3 versions. At 4th September 2022 Journey In The Sky came out.  After 5th September 2022 ttt joined to the project and made 2 levels for
-        the game in 2022. At 16th February 2023 we published our game on <a href="https://chinadlrs.com/app/?id=34" style="color: #8ab4f8;">DL RS Community Official Website</a> and entered in [Bilibili](https://space.bilibili.com/3493137997629710) with name JITS
-        Studio. Since 3rd March 2023 we started to cooperate with Chinese DL Fanmade creators and first our cooperation level was Harmony by <a href="https://space.bilibili.com/471553303" style="color: #8ab4f8;">Assassin</a>.
+
+
+        <!-- HISTORY -->
+
+        <h2>
+            History
+        </h2>
+
+        <p>
+            Idea about making Dancing Line Fanmade Game was born at
+            August 2022. At that time Dju de la va made 5 levels and
+            3 of them was published, meanwhile 2 other was not finished.
+            Idea was simple: combine 5 ready levels in one game.
+        </p>
+
+        <p>
+            From the August 2022 Dju de la va worked with future big
+            game alone and published 3 versions. At 4th September 2022
+            Journey In The Sky came out. After 5th September 2022 ttt
+            joined to the project and made 2 levels for the game in 2022.
+        </p>
+
+        <p>
+            At 16th February 2023 we published our game on
+
+            <a
+                href="https://chinadlrs.com/app/?id=34"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                DL RS Community Official Website
+            </a>
+
+            and entered in
+
+            <a
+                href="https://space.bilibili.com/3493137997629710"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Bilibili
+            </a>
+
+            with name JITS Studio.
+        </p>
+
+        <p>
+            Since 3rd March 2023 we started to cooperate with Chinese
+            DL Fanmade creators and first our cooperation level was
+            Harmony by
+
+            <a
+                href="https://space.bilibili.com/471553303"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Assassin
+            </a>.
+        </p>
+
     </div>
+
 </div>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <small>
+        JITS Studio | 2026 |
+        Contact Data:
+        jitsstudioofficial04092022@gmail.com
+    </small>
+
+</footer>
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+
+    function openMenu() {
+
+        sideMenu.classList.add("open");
+
+        menuOverlay.classList.add("show");
+
+        menuToggle.textContent = "✕";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+
+    function closeMenu() {
+
+        sideMenu.classList.remove("open");
+
+        menuOverlay.classList.remove("show");
+
+        menuToggle.textContent = "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+
+    function toggleMenu() {
+
+        if (
+            sideMenu.classList.contains("open")
+        ) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+
+    }
+
+
+    /* Кнопка ☰ / ✕ */
+
+    menuToggle.addEventListener(
+        "click",
+        toggleMenu
+    );
+
+
+    /* Клік по затемненню закриває меню */
+
+    menuOverlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    /* Escape закриває меню */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+
+        }
+    );
+
+
+    /* Після натискання пункту меню закриваємо його */
+
+    document
+        .querySelectorAll(".side-menu-card .btn")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+
+</script>
+```
+
 </body>
-    <p style="text-align: center;"><small>JITS Studio | 2026 | Contact Data: jitsstudioofficial04092022@gmail.com</small></p>
 </html>
-</body>
-    <p style="text-align: center;"><small>JITS Studio | 2026 | Contact Data: jitsstudioofficial04092022@gmail.com</small></p>
-</html>
+
