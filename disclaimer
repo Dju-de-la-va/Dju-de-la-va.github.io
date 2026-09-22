@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Staff</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #1e1e24;
+            color: #e1e1e6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* =====================================
+           MENU BUTTON (Збережено з index.html)
+        ===================================== */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: #242430;
+            color: #ffffff;
+            border: 1px solid #3a3a4a;
+            border-radius: 8px;
+            font-size: 25px;
+            line-height: 1;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+        .menu-toggle:hover {
+            background-color: #2b3a4a;
+        }
+        .menu-toggle:active {
+            transform: scale(0.94);
+        }
+
+        /* =====================================
+           SIDE NAVIGATION (Збережено з index.html)
+        ===================================== */
+        .side-menu-card {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            height: 100dvh;
+            padding: 85px 15px 20px;
+            background-color: #242430;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.45);
+            z-index: 1000;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        .side-menu-card.open {
+            transform: translateX(0);
+        }
+        .side-menu-card h3 {
+            color: #ffffff;
+            margin: 0 0 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
+            text-align: center;
+        }
+        .side-menu-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .side-menu-card .btn {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        .side-menu-card .btn:hover {
+            background-color: #384d63;
+            color: #ffffff;
+        }
+
+        /* =====================================
+           OVERLAY (Збережено з index.html)
+        ===================================== */
+        .menu-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .menu-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* =====================================
+           MAIN CONTAINER (Чітко по центру сайту)
+        ===================================== */
+        .container {
+            background-color: #242430;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #b4b4b4;
+            border-bottom: 1px solid #3a3a4a;
+            padding-bottom: 8px;
+            margin-top: 30px;
+        }
+
+        /* =====================================
+           GALLERY & IMAGES (Ідеальне центрування)
+        ===================================== */
+        .gallery-image {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            margin: 25px auto 8px;
+            border-radius: 6px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+        }
+        .gallery-caption {
+            text-align: center;
+            color: #aaa;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        /* =====================================
+           ADAPTIVE TABLES
+        ===================================== */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1e1e24;
+            color: #e1e1e6;
+            text-align: left;
+        }
+        th, td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #3a3a4a;
+            font-size: 0.95rem;
+        }
+        th {
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        tr:hover {
+            background-color: #22222c;
+        }
+
+        /* =====================================
+           FOOTER & NAVIGATION BOTTOM
+        ===================================== */
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .btn {
+            background-color: #2b3a4a;
+            color: #8ab4f8;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #384d63;
+            color: #ffffff;
+        }
+        footer {
+            text-align: center;
+            color: #999;
+            padding: 20px 10px;
+            font-size: 0.85rem;
+        }
+
+        /* =====================================
+           MOBILE ADAPTIVITY
+        ===================================== */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+            .menu-toggle {
+                top: 12px;
+                left: 12px;
+                width: 45px;
+                height: 45px;
+                font-size: 22px;
+            }
+            .side-menu-card {
+                width: 80%;
+                max-width: 280px;
+            }
+            .container {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.3rem;
+            }
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.85rem;
+            }
+            .nav-links .btn {
+                flex: 1 1 100%;
+                text-align: center;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU BUTTON -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+    <!-- NAVIGATION SLIDE CARD -->
+    <div class="side-menu-card" id="sideMenu">
+        <h3>Navigation</h3>
+
+        <div class="side-menu-links">
+            <a href="./" class="btn">Home</a>
+            <a href="levels" class="btn">Levels</a>
+            <a href="team_staff" class="btn">Team Staff</a>
+            <a href="disclaimer" class="btn">Disclaimer</a>
+        </div>
+
+    </div>
+
+    <!-- OVERLAY BACKGROUND -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- MAIN CENTRED BLOCK -->
+    <div class="container">
+        <h1>DLRS GAS Login System</h1>
+        <h2>JITS Studio cooperate with 幻影の刄, the manager of 
+          <a
+                href="https://chinadlrs.com/"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >DL RS Community Official Website</a>.
+            For loggining in Journey In The Sky you need to register on 
+            <a
+                href="https://chinadlrs.com/register"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >DL RS Community Official Website</a>. first.</h2>
+        <h2>Copyright Notice</h2>
+        <p>The copyright of the music that used in the game belong to their copyright owners.
+          
+        <p>This game is a fanmade of "Dancing Line". The original game copyright belongs to MINIMAX.</p>
+        <h2>Commerciality</h2>
+        <p>This game is non-commercial fanmade product and wasn't made for getting any kind of monetary profit</p>
+        <p><ins><strong>REMEMBER:</strong></ins> If any third party publishes, distributes, sells, monetizes, or otherwise uses this game for commercial purposes without authorization, 
+          JITS Studio and its members are not responsible for any consequences, claims, damages, or disputes arising from such unauthorized use. 
+          The responsibility for such actions lies solely with the person or organization undertaking them.</p>
+        <h2>Third Party Websites and Platforms</h2>
+        <p>Beside the Discord and QQ Journey In The Sky is published on 
+          <a
+                href="https://chinadlrs.com/id=34"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >DL RS Community Official Website</a>. and on
+          <a
+                href="https://m.taptap.io/app/journey-in-the-sky-33561168"
+                style="color:#8ab4f8;"
+                target="_blank"
+                rel="noopener noreferrer"
+            >TapTap</a>..
+          Other platforms and websites where our game is published are piracy.</p>
+      
+    </div>
+
+    <!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <small>
+        JITS Studio | 2026 |
+        Contact Data:
+        jitsstudioofficial04092022@gmail.com
+    </small>
+
+</footer>
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script>
+
+    const menuToggle =
+        document.getElementById("menuToggle");
+
+    const sideMenu =
+        document.getElementById("sideMenu");
+
+    const menuOverlay =
+        document.getElementById("menuOverlay");
+
+
+    function openMenu() {
+
+        sideMenu.classList.add("open");
+
+        menuOverlay.classList.add("show");
+
+        menuToggle.textContent = "✕";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "true"
+        );
+    }
+
+
+    function closeMenu() {
+
+        sideMenu.classList.remove("open");
+
+        menuOverlay.classList.remove("show");
+
+        menuToggle.textContent = "☰";
+
+        menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    }
+
+
+    function toggleMenu() {
+
+        if (
+            sideMenu.classList.contains("open")
+        ) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+
+    }
+
+
+    /* Кнопка ☰ / ✕ */
+
+    menuToggle.addEventListener(
+        "click",
+        toggleMenu
+    );
+
+
+    /* Клік по затемненню закриває меню */
+
+    menuOverlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    /* Escape закриває меню */
+
+    document.addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+
+        }
+    );
+
+
+    /* Після натискання пункту меню закриваємо його */
+
+    document
+        .querySelectorAll(".side-menu-card .btn")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "click",
+                closeMenu
+            );
+
+        });
+</script>
+</body>
+</html>
